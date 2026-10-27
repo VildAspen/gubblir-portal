@@ -236,7 +236,7 @@
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = 'bg-amber-500 text-black font-bold text-xs px-4 py-2.5 rounded-lg shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-3 opacity-0';
-      toast.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>\${text}</span>`;
+      toast.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>' + text + '</span>';
       container.appendChild(toast);
       lucide.createIcons();
 
@@ -252,7 +252,7 @@
 
     function copyCmd(cmd) {
       navigator.clipboard.writeText(cmd).then(() => {
-        showToast(`Kopierat: "\${cmd}"`);
+        showToast('Kopierat: "' + cmd + '"');
       }).catch(() => {
         const input = document.createElement('input');
         input.value = cmd;
@@ -271,7 +271,7 @@
           const data = await res.json();
           if (data.map) document.getElementById('srv-map').textContent = data.map;
           if (data.playerCount !== undefined && data.maxPlayers !== undefined) {
-            document.getElementById('srv-players').textContent = `\${data.playerCount} / \${data.maxPlayers}`;
+            document.getElementById('srv-players').textContent = data.playerCount + ' / ' + data.maxPlayers;
           }
         }
       } catch (e) {
