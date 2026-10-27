@@ -213,14 +213,71 @@
 
       <!-- Spelarlista Container -->
       <div id="roster-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        <!-- Laddas dynamiskt via JS eller visar tomt tillstånd -->
         <div id="roster-empty" class="col-span-full py-8 text-center text-zinc-500 text-xs">
           Inga spelare anslutna just nu. Var först in och starta upp servern!
         </div>
       </div>
     </section>
 
-    <!-- Serverinställningar (Städat 2-kolumnsgrid utan speltider) -->
+    <!-- NYTT: MatchZy Statistik & Leaderboard -->
+    <section class="bg-zinc-900/40 border border-zinc-800/60 p-6 rounded-2xl space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
+        <div>
+          <h2 class="text-base font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
+            <span>GubbLir Statistik</span>
+          </h2>
+          <p class="text-xs text-zinc-400">Officiell in-house data från MatchZy & Databas</p>
+        </div>
+
+        <!-- Flikväljare: Leaderboard vs Matcher -->
+        <div class="inline-flex bg-zinc-950 p-1 rounded-xl border border-zinc-800/80 text-xs font-semibold">
+          <button id="tab-btn-leaderboard" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition">
+            Topplista
+          </button>
+          <button id="tab-btn-matches" class="px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition">
+            Senaste Matcher
+          </button>
+        </div>
+      </div>
+
+      <!-- Flik 1: Topplista (Tabell) -->
+      <div id="view-leaderboard" class="space-y-3">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="text-[11px] font-mono text-zinc-400 border-b border-zinc-800/80 uppercase">
+                <th class="pb-3 pl-3 w-12">#</th>
+                <th class="pb-3">Spelare</th>
+                <th class="pb-3 text-center">Matcher</th>
+                <th class="pb-3 text-center">K/D</th>
+                <th class="pb-3 text-center">K / D</th>
+                <th class="pb-3 text-center">HS%</th>
+                <th class="pb-3 text-right pr-3">MVPs</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-tbody" class="divide-y divide-zinc-800/40">
+              <tr>
+                <td colspan="7" class="py-8 text-center text-zinc-500 font-mono">
+                  Laddar in topplistan...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Flik 2: Senaste Matcher (Kortgrid) -->
+      <div id="view-matches" class="hidden space-y-3">
+        <div id="matches-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="col-span-full py-8 text-center text-zinc-500 font-mono text-xs">
+            Laddar in matcher...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Serverinställningar -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-zinc-900/40 border border-zinc-800/60 p-5 rounded-2xl space-y-2">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
@@ -330,6 +387,7 @@
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <script>
+    const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     let unlockedPassword = null;
     let pollInterval = null;
 
@@ -383,7 +441,7 @@
       }
     }
 
-    // Rendera Spelarlistan
+    // Rendera Live Spelarlistan
     function renderRoster(players) {
       const rosterList = document.getElementById('roster-list');
       const countText = document.getElementById('roster-count-text');
@@ -457,6 +515,142 @@
       } catch (e) {
         // Fallback vid nätverksfel
       }
+    }
+
+    // ----------------------------------------------------
+    // Statistik & Leaderboard Logic (Supabase via Render)
+    // ----------------------------------------------------
+    async function loadStats() {
+      // 1. Hämta Topplista
+      try {
+        const res = await fetch(`${STATS_API_BASE}/api/stats/leaderboard`);
+        const tbody = document.getElementById('leaderboard-tbody');
+
+        if (res.ok) {
+          const players = await res.json();
+
+          if (players.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="7" class="py-8 text-center text-zinc-500 font-mono text-xs">
+                  Inga matcher har spelats än. Kör en match på servern så syns statistiken här!
+                </td>
+              </tr>
+            `;
+          } else {
+            tbody.innerHTML = players.map((p, idx) => {
+              const rank = idx + 1;
+              const rankBadge = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank;
+              const kdColor = parseFloat(p.kd_ratio || 0) >= 1.0 ? 'text-emerald-400' : 'text-zinc-400';
+
+              return `
+                <tr class="hover:bg-zinc-800/20 transition">
+                  <td class="py-3 pl-3 font-mono font-bold text-zinc-400">${rankBadge}</td>
+                  <td class="py-3 font-semibold text-white">
+                    <span class="hover:text-amber-400 transition cursor-default">${p.name}</span>
+                  </td>
+                  <td class="py-3 text-center font-mono text-zinc-400">${p.matches_played}</td>
+                  <td class="py-3 text-center font-mono font-bold ${kdColor}">${p.kd_ratio || '0.00'}</td>
+                  <td class="py-3 text-center font-mono text-zinc-400">${p.total_kills} / ${p.total_deaths}</td>
+                  <td class="py-3 text-center font-mono text-zinc-400">${p.hs_percentage ? p.hs_percentage + '%' : '-'}</td>
+                  <td class="py-3 text-right pr-3 font-mono font-bold text-amber-400">${p.total_mvps || 0}</td>
+                </tr>
+              `;
+            }).join('');
+          }
+        } else {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="py-6 text-center text-zinc-500 font-mono text-xs">
+                Kunde inte hämta statistiken just nu.
+              </td>
+            </tr>
+          `;
+        }
+      } catch (err) {
+        document.getElementById('leaderboard-tbody').innerHTML = `
+          <tr>
+            <td colspan="7" class="py-6 text-center text-zinc-500 font-mono text-xs">
+              Väntar på backend-anslutning...
+            </td>
+          </tr>
+        `;
+      }
+
+      // 2. Hämta Senaste Matcher
+      try {
+        const res = await fetch(`${STATS_API_BASE}/api/stats/matches`);
+        const grid = document.getElementById('matches-grid');
+
+        if (res.ok) {
+          const matches = await res.json();
+
+          if (matches.length === 0) {
+            grid.innerHTML = `
+              <div class="col-span-full py-8 text-center text-zinc-500 font-mono text-xs">
+                Inga matcher registrerade ännu.
+              </div>
+            `;
+          } else {
+            grid.innerHTML = matches.map(m => {
+              const playedDate = new Date(m.played_at).toLocaleDateString('sv-SE', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              });
+
+              return `
+                <div class="bg-zinc-950/70 border border-zinc-800/80 p-4 rounded-xl space-y-3">
+                  <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                    <span class="uppercase font-bold text-amber-500/90">${m.map_name}</span>
+                    <span>${playedDate}</span>
+                  </div>
+                  <div class="flex items-center justify-between font-mono">
+                    <div class="space-y-0.5">
+                      <span class="text-xs font-bold text-white block truncate max-w-[120px]">${m.team1_name}</span>
+                      <span class="text-xl font-black ${m.team1_score > m.team2_score ? 'text-emerald-400' : 'text-zinc-400'}">${m.team1_score}</span>
+                    </div>
+                    <span class="text-xs font-black text-zinc-600">VS</span>
+                    <div class="space-y-0.5 text-right">
+                      <span class="text-xs font-bold text-white block truncate max-w-[120px]">${m.team2_name}</span>
+                      <span class="text-xl font-black ${m.team2_score > m.team1_score ? 'text-emerald-400' : 'text-zinc-400'}">${m.team2_score}</span>
+                    </div>
+                  </div>
+                  <div class="text-[10px] text-zinc-500 border-t border-zinc-800/60 pt-2 flex justify-between">
+                    <span>Vinnare: <strong class="text-zinc-300 font-medium">${m.winner || 'Oavgjort'}</strong></span>
+                    <span class="font-mono">MatchZy</span>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      } catch (err) {
+        // Fallback vid fel
+      }
+    }
+
+    // Flik-växlare
+    function setupTabs() {
+      const btnLeaderboard = document.getElementById('tab-btn-leaderboard');
+      const btnMatches = document.getElementById('tab-btn-matches');
+      const viewLeaderboard = document.getElementById('view-leaderboard');
+      const viewMatches = document.getElementById('view-matches');
+
+      btnLeaderboard.addEventListener('click', () => {
+        btnLeaderboard.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition';
+        btnMatches.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
+        viewLeaderboard.classList.remove('hidden');
+        viewMatches.classList.add('hidden');
+      });
+
+      btnMatches.addEventListener('click', () => {
+        btnMatches.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition';
+        btnLeaderboard.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
+        viewMatches.classList.remove('hidden');
+        viewLeaderboard.classList.add('hidden');
+      });
     }
 
     // Applicera medlemsstatus i DOM
@@ -565,8 +759,10 @@
       lucide.createIcons();
       pollStatus();
       checkAuth();
+      setupTabs();
+      loadStats();
 
-      // Poll var 15:e sekund
+      // Poll serverstatus var 15:e sekund
       pollInterval = setInterval(pollStatus, 15000);
 
       document.getElementById('btn-logout').addEventListener('click', logout);
@@ -586,6 +782,7 @@
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) {
           pollStatus();
+          loadStats();
         }
       });
     });
