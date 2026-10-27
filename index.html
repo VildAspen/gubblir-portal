@@ -174,7 +174,7 @@
 
     </div>
 
-    <!-- Sektion för inloggad GubbLir Medlem (Dold by default) -->
+    <!-- Sektion för inloggad GubbLir Medlem -->
     <div id="member-section" class="hidden space-y-4">
       <div class="bg-gradient-to-r from-amber-500/10 via-zinc-900/60 to-zinc-900/40 border border-amber-500/30 rounded-2xl p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -369,10 +369,8 @@
       }
     }
 
-    // Server Polling med Tab Visibility Check
+    // Server Polling
     async function pollStatus() {
-      if (document.hidden) return;
-
       try {
         const res = await fetch('https://gubblir-api.rasmusaspenback.workers.dev/api/server/status');
         if (res.ok) {
@@ -394,11 +392,11 @@
           }
         }
       } catch (e) {
-        // Fallback vid nätverksstrul
+        // Fallback vid nätverksfel
       }
     }
 
-    // Applicera medlemsstatus säkert i DOM
+    // Applicera medlemsstatus i DOM
     function applyMemberState(authData) {
       const loginBtn = document.getElementById('btn-discord-login');
       const userProfile = document.getElementById('user-profile');
@@ -422,7 +420,7 @@
         unlockedPassword = authData.password;
         memberSection.classList.remove('hidden');
 
-        // Uppdatera lösenordsfält säkert
+        // Uppdatera lösenordsfält
         passwordField.textContent = '';
         const pwBadge = document.createElement('span');
         pwBadge.className = 'font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2.5 py-0.5 rounded cursor-pointer select-all font-bold';
@@ -444,7 +442,7 @@
         secTxt.textContent = `Kopiera lösenord (${authData.password})`;
         secIcon.setAttribute('data-lucide', 'key');
 
-        // Koppla snabbkopieringsknapp i medlemssektionen
+        // Snabbkopiering i medlemssektionen
         const quickCopyBtn = document.getElementById('btn-quick-copy-member');
         if (quickCopyBtn) {
           quickCopyBtn.onclick = () => copyText(fullConnectCmd, 'Hela kommandot kopierat!');
@@ -505,7 +503,8 @@
       pollStatus();
       checkAuth();
 
-      pollInterval = setInterval(pollStatus, 30000);
+      // Poll var 15:e sekund
+      pollInterval = setInterval(pollStatus, 15000);
 
       document.getElementById('btn-logout').addEventListener('click', logout);
 
