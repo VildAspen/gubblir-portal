@@ -166,7 +166,7 @@
             <span class="text-zinc-400">Lösenord:</span>
             <span id="srv-password-field" class="text-amber-400 font-medium flex items-center gap-1.5">
               <i data-lucide="lock" class="w-3.5 h-3.5 inline"></i>
-              <span>Kräver Gubblirare-roll</span>
+              <span>Kräver GubbLir Medlem</span>
             </span>
           </div>
         </div>
@@ -174,14 +174,14 @@
 
     </div>
 
-    <!-- Sektion för inloggad Gubblirare (Dold by default) -->
+    <!-- Sektion för inloggad GubbLir Medlem (Dold by default) -->
     <div id="member-section" class="hidden space-y-4">
       <div class="bg-gradient-to-r from-amber-500/10 via-zinc-900/60 to-zinc-900/40 border border-amber-500/30 rounded-2xl p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="flex items-center gap-2.5">
               <span class="bg-amber-500 text-black font-black text-[11px] px-2 py-0.5 rounded uppercase tracking-wider">Aktiv Medlem</span>
-              <h3 class="text-base font-bold text-white">Välkommen, Gubblirare!</h3>
+              <h3 class="text-base font-bold text-white">Välkommen, GubbLir Medlem!</h3>
             </div>
             <p class="text-xs text-zinc-300 leading-relaxed max-w-xl">
               Du är verifierad med medlemsrollen. Serverlösenordet är upplåst och konsolkommandot är laddat. Du kan klicka på knappen bredvid för att snabbkopiera hela kommandot med lösenord.
@@ -293,7 +293,7 @@
           <span>Hur blir jag medlem?</span>
         </h3>
         <p class="text-xs text-zinc-400 leading-relaxed">
-          Gå med i vår Discord via <a href="https://join.gubbliren.se" target="_blank" rel="noopener noreferrer" class="text-amber-400 underline font-semibold">join.gubbliren.se</a>, säg hej och skriv din ålder. När du fått rollen <strong>Gubblirare</strong> loggar du in här på portalen för att låsa upp lösenordet.
+          Gå med i vår Discord via <a href="https://join.gubbliren.se" target="_blank" rel="noopener noreferrer" class="text-amber-400 underline font-semibold">join.gubbliren.se</a> och godkänn reglerna i välkomstkanalen för att få rollen <strong>GubbLir Medlem</strong>. Logga sedan in här på portalen för att låsa upp serverlösenordet.
         </p>
       </div>
     </section>
@@ -371,7 +371,7 @@
 
     // Server Polling med Tab Visibility Check
     async function pollStatus() {
-      if (document.hidden) return; // Gör inga anrop om fliken är minimerad
+      if (document.hidden) return;
 
       try {
         const res = await fetch('https://gubblir-api.rasmusaspenback.workers.dev/api/server/status');
@@ -384,7 +384,6 @@
             const playersEl = document.getElementById('srv-players');
             playersEl.textContent = `${data.playerCount} / ${data.maxPlayers}`;
 
-            // Ändra färg om det är folk inne
             if (data.playerCount > 0) {
               playersEl.classList.remove('text-amber-400');
               playersEl.classList.add('text-emerald-400');
@@ -395,12 +394,12 @@
           }
         }
       } catch (e) {
-        // Fallback vid tillfälligt nätverksfel
+        // Fallback vid nätverksstrul
       }
     }
 
-    // Applicera Gubblirare-roll & lås upp gränssnitt säkert
-    function applyGubblirareState(authData) {
+    // Applicera medlemsstatus säkert i DOM
+    function applyMemberState(authData) {
       const loginBtn = document.getElementById('btn-discord-login');
       const userProfile = document.getElementById('user-profile');
       const userAvatar = document.getElementById('user-avatar');
@@ -423,7 +422,7 @@
         unlockedPassword = authData.password;
         memberSection.classList.remove('hidden');
 
-        // Uppdatera lösenordsfält säkert utan innerHTML-injections
+        // Uppdatera lösenordsfält säkert
         passwordField.textContent = '';
         const pwBadge = document.createElement('span');
         pwBadge.className = 'font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2.5 py-0.5 rounded cursor-pointer select-all font-bold';
@@ -453,7 +452,7 @@
 
         showToast(`Välkommen tillbaka, ${authData.user.username}!`);
       } else {
-        showToast(`Inloggad som ${authData.user.username} (Saknar Gubblirare-roll)`);
+        showToast(`Inloggad som ${authData.user.username} (Saknar medlemsroll)`);
       }
       lucide.createIcons();
     }
@@ -475,7 +474,7 @@
 
           if (data.authenticated) {
             localStorage.setItem('gubblir_auth', JSON.stringify(data));
-            applyGubblirareState(data);
+            applyMemberState(data);
             return;
           }
         } catch (err) {
@@ -493,7 +492,7 @@
       if (cached) {
         try {
           const data = JSON.parse(cached);
-          applyGubblirareState(data);
+          applyMemberState(data);
         } catch (e) {
           localStorage.removeItem('gubblir_auth');
         }
@@ -506,10 +505,8 @@
       pollStatus();
       checkAuth();
 
-      // Polla var 30:e sekund när fliken är aktiv
       pollInterval = setInterval(pollStatus, 30000);
 
-      // Event Listeners för statiska element
       document.getElementById('btn-logout').addEventListener('click', logout);
 
       document.getElementById('btn-copy-connect').addEventListener('click', () => {
@@ -517,7 +514,6 @@
         copyText(text, 'Kommando kopierat!');
       });
 
-      // Snabbkommandon delegation
       document.querySelectorAll('.btn-cmd').forEach(btn => {
         btn.addEventListener('click', () => {
           const cmd = btn.getAttribute('data-cmd');
@@ -525,7 +521,6 @@
         });
       });
 
-      // Polla direkt när man byter tillbaka till fliken
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) {
           pollStatus();
