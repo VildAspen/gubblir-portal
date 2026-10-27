@@ -195,7 +195,32 @@
       </div>
     </div>
 
-<!-- Serverinfo Grid -->
+    <!-- Live Spelarlista & MatchHub -->
+    <section class="bg-zinc-900/40 border border-zinc-800/60 p-6 rounded-2xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-4">
+        <div>
+          <h2 class="text-base font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
+            <i data-lucide="users" class="w-4 h-4 text-amber-500"></i>
+            <span>Anslutna Spelare Just Nu</span>
+          </h2>
+          <p class="text-xs text-zinc-400">Live-lista över gubbar som är inne på servern</p>
+        </div>
+        <div id="roster-badge" class="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 bg-zinc-950 px-3 py-1 rounded-lg border border-zinc-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="roster-count-text">0 spelare anslutna</span>
+        </div>
+      </div>
+
+      <!-- Spelarlista Container -->
+      <div id="roster-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <!-- Laddas dynamiskt via JS eller visar tomt tillstånd -->
+        <div id="roster-empty" class="col-span-full py-8 text-center text-zinc-500 text-xs">
+          Inga spelare anslutna just nu. Var först in och starta upp servern!
+        </div>
+      </div>
+    </section>
+
+    <!-- Serverinställningar (Städat 2-kolumnsgrid utan speltider) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-zinc-900/40 border border-zinc-800/60 p-5 rounded-2xl space-y-2">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
@@ -358,6 +383,51 @@
       }
     }
 
+    // Rendera Spelarlistan
+    function renderRoster(players) {
+      const rosterList = document.getElementById('roster-list');
+      const countText = document.getElementById('roster-count-text');
+      
+      if (!Array.isArray(players) || players.length === 0) {
+        countText.textContent = '0 spelare anslutna';
+        rosterList.innerHTML = `
+          <div class="col-span-full py-6 text-center text-zinc-500 text-xs">
+            Inga spelare anslutna just nu. Var först in och starta upp servern!
+          </div>
+        `;
+        return;
+      }
+
+      countText.textContent = `${players.length} ${players.length === 1 ? 'spelare ansluten' : 'spelare anslutna'}`;
+      rosterList.innerHTML = '';
+
+      players.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between bg-zinc-950/80 border border-zinc-800/80 p-3 rounded-xl';
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'flex items-center gap-2.5 overflow-hidden';
+        
+        const dot = document.createElement('span');
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-500 shrink-0';
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'font-bold text-xs text-zinc-200 truncate';
+        nameSpan.textContent = p.name || 'Spelare';
+
+        nameDiv.appendChild(dot);
+        nameDiv.appendChild(nameSpan);
+
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'text-[10px] font-mono text-zinc-500 shrink-0';
+        timeSpan.textContent = p.time ? `${Math.floor(p.time / 60)}m` : 'Inne';
+
+        item.appendChild(nameDiv);
+        item.appendChild(timeSpan);
+        rosterList.appendChild(item);
+      });
+    }
+
     // Server Polling
     async function pollStatus() {
       try {
@@ -378,6 +448,10 @@
               playersEl.classList.remove('text-emerald-400');
               playersEl.classList.add('text-amber-400');
             }
+          }
+
+          if (data.players) {
+            renderRoster(data.players);
           }
         }
       } catch (e) {
