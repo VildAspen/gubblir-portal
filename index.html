@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GubbLir CS2 | Taktiskt lir för mogna lirare</title>
-  <meta name="description" content="Svensk CS2-community för mogna lirare. 5v5 in-house matcher, taktiskt spel och gemenskap utan toxic stämning.">
+  <title>GubbLir CS2 | För oss som vill, men insett att vi inte längre kan</title>
+  <meta name="description" content="Svensk CS2-community för lirare i alla åldrar (15–60+). In-house 5v5 matcher, bra stämning, noll toxic gnäll och 100% vilja.">
   
-  <!-- OpenGraph / Discord Meta -->
+  <!-- OpenGraph / Discord Embeds -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gubblir.se">
-  <meta property="og:title" content="GubbLir CS2 | Taktiskt lir för mogna lirare">
-  <meta property="og:description" content="Svensk in-house community för CS2. Verifiera medlemsroll via Discord och lira utan toxic gnäll.">
+  <meta property="og:title" content="GubbLir CS2 | Match Community">
+  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. Svenska 5v5 in-house matcher utan toxic stämning.">
   <meta property="og:theme-color" content="#f59e0b">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23090a0f'/><rect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23f59e0b' stroke-width='4' opacity='0.3'/><text x='50%' y='60%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='48' fill='%23f59e0b'>GL</text></svg>">
   
-  <!-- Typsnitt -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -53,14 +53,14 @@
 </head>
 <body class="bg-[#090a0f] text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black overflow-x-hidden relative bg-grid-pattern">
 
-  <!-- Ambient Glow -->
+  <!-- Ambient Bakgrundsljus -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] h-[400px] bg-amber-500/10 blur-[130px] rounded-full"></div>
-    <div class="absolute top-[40%] right-[-100px] w-[500px] h-[500px] bg-amber-600/5 blur-[150px] rounded-full"></div>
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] h-[400px] bg-amber-500/10 blur-[140px] rounded-full"></div>
+    <div class="absolute top-[45%] right-[-100px] w-[500px] h-[500px] bg-amber-600/5 blur-[150px] rounded-full"></div>
   </div>
 
   <!-- Header -->
-  <header class="border-b border-zinc-800/80 bg-[#090a0f]/80 backdrop-blur-xl sticky top-0 z-40">
+  <header class="border-b border-zinc-800/80 bg-[#090a0f]/85 backdrop-blur-xl sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <span class="bg-gradient-to-br from-amber-400 to-amber-600 text-black font-black text-sm px-2.5 py-1 rounded shadow-md shadow-amber-500/20 tracking-wider">GL</span>
@@ -81,7 +81,7 @@
           <img id="user-avatar" class="w-7 h-7 rounded-full border border-amber-500/40 object-cover" src="" alt="Avatar">
           <div class="flex flex-col">
             <span id="user-name" class="text-xs font-bold text-white leading-tight"></span>
-            <span id="user-role-badge" class="text-[9px] font-mono text-amber-400">Medlem</span>
+            <span id="user-role-badge" class="text-[9px] font-mono text-amber-400">GubbLirare</span>
           </div>
           <button id="btn-logout" class="text-zinc-500 hover:text-zinc-300 ml-2 p-1 transition" title="Logga ut">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
@@ -92,32 +92,32 @@
   </header>
 
   <!-- Huvudinnehåll -->
-  <main class="relative z-10 flex-grow max-w-6xl mx-auto px-5 py-8 w-full space-y-10">
+  <main class="relative z-10 flex-grow max-w-6xl mx-auto px-5 py-8 w-full space-y-12">
 
-    <!-- Hero / Server Status Hub -->
+    <!-- Hero / Server Hub -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       
-      <!-- Vänster kolumn: Hero & Connect -->
+      <!-- Vänster kolumn: Identitet & Connect -->
       <div class="lg:col-span-7 space-y-6">
         <div class="inline-flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-300 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>MatchZy 5v5 · Stockholm · Subtick Tickless</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase leading-[1.03]">
-          Taktiskt lir <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">för mogna gubbar.</span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase leading-[1.05]">
+          För oss som vill, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">men insett att vi inte längre kan.</span>
         </h1>
 
         <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl">
-          Svensk gemenskap för in-house matcher, skönt snack och taktiskt spel utan gnäll. Servern är låst med lösenord för verifierade Discord-medlemmar.
+          GubbLir är inte ett födelsedatum – det är en mentalitet. Från 15 till 60+ samlas vi kring god stämning, tydlig info och strukturerad Counter-Strike helt utan toxic gnäll och ego-spel.
         </p>
 
         <!-- Snabbkopiering av IP -->
         <div class="space-y-2 pt-1 max-w-lg">
           <div class="flex items-center justify-between">
             <label class="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block">Konsolkommando (~):</label>
-            <span class="text-[11px] font-mono text-zinc-500">Klicka för 1-klicks-kopiering</span>
+            <span class="text-[11px] font-mono text-zinc-500">1-klicks-kopiering</span>
           </div>
           <div class="flex items-center justify-between bg-zinc-950/80 border border-zinc-800 hover:border-zinc-700 transition rounded-xl p-2 font-mono text-xs sm:text-sm text-zinc-300 shadow-inner group">
             <span id="cmd-connect-text" class="truncate pl-2 select-all font-medium text-amber-400">connect cs.gubblir.se:25152</span>
@@ -130,13 +130,13 @@
 
         <!-- Call to Actions -->
         <div class="flex flex-wrap items-center gap-3 pt-2">
-          <a id="btn-steam-connect" href="steam://connect/cs.gubblir.se:25152" class="flex items-center gap-2.5 bg-amber-500 hover:bg-amber-400 text-black font-black text-sm px-6 py-3.5 rounded-xl transition shadow-[0_0_25px_rgba(245,158,11,0.25)] active:scale-95">
-            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-            <span>Starta CS2 & Anslut</span>
-          </a>
-          <a id="btn-secondary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="flex items-center gap-2 bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-semibold text-sm px-5 py-3.5 rounded-xl transition cursor-pointer active:scale-95">
-            <i id="icon-secondary-action" data-lucide="lock" class="w-4 h-4 text-amber-500"></i>
+          <a id="btn-secondary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-sm px-6 py-3.5 rounded-xl transition shadow-[0_0_25px_rgba(245,158,11,0.25)] active:scale-95">
+            <i id="icon-secondary-action" data-lucide="shield-check" class="w-4 h-4"></i>
             <span id="txt-secondary-action">Lås upp lösenord med Discord</span>
+          </a>
+          <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-semibold text-sm px-5 py-3.5 rounded-xl transition cursor-pointer active:scale-95">
+            <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
+            <span>Gå med i Discord</span>
           </a>
         </div>
       </div>
@@ -169,7 +169,7 @@
 
         <div class="space-y-3 text-xs text-zinc-400 border-t border-zinc-800/80 pt-5">
           <div class="flex justify-between items-center">
-            <span class="text-zinc-500">DNS:</span>
+            <span class="text-zinc-500">Adress:</span>
             <span class="font-mono text-zinc-200">cs.gubblir.se:25152</span>
           </div>
           <div class="flex justify-between items-center">
@@ -177,14 +177,14 @@
             <span class="font-mono text-zinc-200">212.102.62.209:25152</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-zinc-500">Skydd & Tick:</span>
-            <span class="text-zinc-200">VAC · Subtick Tickless</span>
+            <span class="text-zinc-500">Format:</span>
+            <span class="text-zinc-200">MR12 · Knivrunda · MatchZy</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-zinc-500">Lösenord:</span>
             <span id="srv-password-field" class="text-amber-400 font-medium flex items-center gap-1.5">
               <i data-lucide="lock" class="w-3.5 h-3.5 inline"></i>
-              <span>Kräver Medlem</span>
+              <span>Kräver Inloggning</span>
             </span>
           </div>
         </div>
@@ -192,17 +192,17 @@
 
     </div>
 
-    <!-- Sektion för inloggad Medlem (Upplåst lösenord) -->
+    <!-- Sektion för Inloggad Medlem (Upplåst) -->
     <div id="member-section" class="hidden space-y-4">
       <div class="bg-gradient-to-r from-amber-500/10 via-zinc-900/60 to-zinc-900/40 border border-amber-500/30 rounded-2xl p-6 shadow-lg shadow-amber-500/5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="flex items-center gap-2.5">
               <span class="bg-amber-500 text-black font-black text-[11px] px-2 py-0.5 rounded uppercase tracking-wider">Aktiv Medlem</span>
-              <h3 class="text-base font-bold text-white">Välkommen in, GubbLirare!</h3>
+              <h3 class="text-base font-bold text-white">Lösenordet är upplåst!</h3>
             </div>
             <p class="text-xs text-zinc-300 leading-relaxed max-w-xl">
-              Serverlösenordet är upplåst. Klicka på knappen för att kopiera hela anslutningskommandot direkt.
+              Serverlösenordet är synligt. Klicka på knappen för att kopiera hela kommandot och klistra in i konsolen (~).
             </p>
           </div>
           <button id="btn-quick-copy-member" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs px-5 py-3.5 rounded-xl transition shrink-0 active:scale-95 shadow-md shadow-amber-500/20">
@@ -212,6 +212,49 @@
         </div>
       </div>
     </div>
+
+    <!-- Onboarding: 3 enkla steg till lir -->
+    <section class="space-y-4">
+      <div class="border-b border-zinc-800/80 pb-3">
+        <span class="text-[11px] font-mono text-amber-500 uppercase tracking-widest block font-bold">Hur det fungerar</span>
+        <h2 class="text-xl font-black text-white uppercase tracking-tight">3 Steg till match på GubbLir</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-zinc-900/40 border border-zinc-800/80 p-5 rounded-2xl space-y-2 backdrop-blur-sm relative">
+          <span class="text-2xl font-black font-mono text-amber-500/30 absolute top-4 right-4">01</span>
+          <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-white">Gå med i Discord</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Hoppa in på vår Discord och presentera dig för att få medlemsrollen. Det är där matcherna snackas ihop och röstkanalerna rullar.
+          </p>
+        </div>
+
+        <div class="bg-zinc-900/40 border border-zinc-800/80 p-5 rounded-2xl space-y-2 backdrop-blur-sm relative">
+          <span class="text-2xl font-black font-mono text-amber-500/30 absolute top-4 right-4">02</span>
+          <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+            <i data-lucide="key" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-white">Lås upp lösenordet</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Logga in med Discord högst upp på portalen. Då visas det hemliga serverlösenordet och du får hela kommandot med ett klick.
+          </p>
+        </div>
+
+        <div class="bg-zinc-900/40 border border-zinc-800/80 p-5 rounded-2xl space-y-2 backdrop-blur-sm relative">
+          <span class="text-2xl font-black font-mono text-amber-500/30 absolute top-4 right-4">03</span>
+          <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+            <i data-lucide="swords" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-white">Skriv .ready och lira</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            När 10 gubbar är inne startas matchen med knivrunda för sida. MatchZy sköter pauser, demos och loggar all statistik automatiskt.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- Live Spelarlista -->
     <section class="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-2xl space-y-4 backdrop-blur-sm">
@@ -239,6 +282,46 @@
         <div id="roster-empty" class="col-span-full py-8 text-center text-zinc-500 text-xs">
           Inga spelare anslutna just nu. Var först in och starta upp servern!
         </div>
+      </div>
+    </section>
+
+    <!-- MatchZy Cheat-Sheet (Fusklapp för servern) -->
+    <section class="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-2xl space-y-4 backdrop-blur-sm">
+      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+        <div>
+          <h2 class="text-base font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
+            <i data-lucide="terminal" class="w-4 h-4 text-amber-500"></i>
+            <span>MatchZy Fusklapp (Chattkommandon)</span>
+          </h2>
+          <p class="text-xs text-zinc-400">Klicka på valfritt kommando för att kopiera det direkt till chatten</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-1">
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".ready">
+          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.ready</span>
+          <span class="text-[10px] text-zinc-500">Redo för match</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".unready">
+          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.unready</span>
+          <span class="text-[10px] text-zinc-500">Inte redo</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".stay">
+          <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.stay</span>
+          <span class="text-[10px] text-zinc-500">Stanna på sida</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".switch">
+          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.switch</span>
+          <span class="text-[10px] text-zinc-500">Byt sida efter kniv</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".tac">
+          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.tac</span>
+          <span class="text-[10px] text-zinc-500">Taktisk timeout</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".pause">
+          <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.pause</span>
+          <span class="text-[10px] text-zinc-500">Teknisk paus</span>
+        </button>
       </div>
     </section>
 
@@ -312,9 +395,9 @@
       <div class="bg-zinc-900/40 border border-zinc-800/80 p-5 rounded-2xl space-y-2 backdrop-blur-sm">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
           <i data-lucide="map" class="w-4 h-4"></i>
-          <span>Aktiv Map Pool & Format</span>
+          <span>Officiell Mappool</span>
         </div>
-        <p class="text-xs text-zinc-300 font-medium">MR12 Tävlingsregler:</p>
+        <p class="text-xs text-zinc-300 font-medium">Aktiva MR12-tävlingskartor:</p>
         <p class="text-xs font-mono text-zinc-400 leading-relaxed text-[11px]">
           Mirage · Inferno · Nuke · Dust II · Ancient · Anubis · Vertigo
         </p>
@@ -326,7 +409,7 @@
           <span>GubbLir Filosofi</span>
         </div>
         <p class="text-xs text-zinc-400 leading-relaxed">
-          Vi spelar strukturerad CS med bra stämning och info. Skrik, toxic attityd och fusk resulterar i omedelbar bannlysning.
+          Vi spelar för att det är kul. Info, humor och fokus på rundan går alltid före toxic attityd. Fusk eller trolleri resulterar i direkt permanent ban.
         </p>
       </div>
     </div>
@@ -336,7 +419,7 @@
   <!-- Footer -->
   <footer class="border-t border-zinc-900/80 bg-[#07080b] py-6 text-center text-xs text-zinc-500 relative z-10">
     <div class="max-w-6xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>&copy; 2026 GubbLir Community.</span>
+      <span>&copy; 2026 GubbLir Community · För oss som vill, men som insett att vi inte längre kan.</span>
       <div class="flex items-center gap-4">
         <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition">Discord</a>
         <span>•</span>
@@ -403,7 +486,7 @@
           document.execCommand('copy');
           document.body.removeChild(textarea);
         }
-        showToast(successMessage || 'Kopierat till urklipp!');
+        showToast(successMessage || 'Kopierat!');
       } catch (err) {
         showToast('Kunde inte kopiera.');
       }
@@ -454,7 +537,7 @@
     }
 
     async function pollStatus() {
-      if (document.hidden) return; // Pausa polling i bakgrunden
+      if (document.hidden) return;
       try {
         const res = await fetch('https://gubblir-api.rasmusaspenback.workers.dev/api/server/status');
         if (res.ok) {
@@ -484,7 +567,7 @@
               <div class="flex flex-col items-center justify-center gap-2 max-w-sm mx-auto">
                 <i data-lucide="database" class="w-7 h-7 text-zinc-600"></i>
                 <p class="text-xs text-zinc-300 font-semibold">Ingen statistik tillgänglig ännu</p>
-                <p class="text-[11px] text-zinc-500 leading-relaxed">Spela färdigt en 5v5-match på servern så rankas topplistan automatiskt här!</p>
+                <p class="text-[11px] text-zinc-500 leading-relaxed">Spela en 5v5-match på servern så rankas topplistan automatiskt här!</p>
               </div>
             </td>
           </tr>
@@ -635,7 +718,6 @@
       const memberSection = document.getElementById('member-section');
       const passwordField = document.getElementById('srv-password-field');
       const connectText = document.getElementById('cmd-connect-text');
-      const steamBtn = document.getElementById('btn-steam-connect');
       const secBtn = document.getElementById('btn-secondary-action');
       const secTxt = document.getElementById('txt-secondary-action');
       const secIcon = document.getElementById('icon-secondary-action');
@@ -660,11 +742,10 @@
 
         const fullConnectCmd = `connect cs.gubblir.se:25152; password ${authData.password}`;
         connectText.textContent = fullConnectCmd;
-        steamBtn.href = `steam://connect/cs.gubblir.se:25152/${authData.password}`;
 
         secBtn.removeAttribute('href');
-        secBtn.onclick = () => copyText(authData.password, `Lösenord: ${authData.password}`);
-        secTxt.textContent = `Kopiera lösenord (${authData.password})`;
+        secBtn.onclick = () => copyText(fullConnectCmd, 'Hela kommandot kopierat!');
+        secTxt.textContent = `Kopiera lösenord & connect`;
         secIcon.setAttribute('data-lucide', 'key');
 
         const quickCopyBtn = document.getElementById('btn-quick-copy-member');
@@ -727,7 +808,6 @@
       setupTabs();
       loadStats();
 
-      // Poll var 15:e sek (pausas automatiskt i pollStatus om fliken är minimerad)
       pollInterval = setInterval(pollStatus, 15000);
 
       document.getElementById('btn-logout').addEventListener('click', logout);
@@ -744,6 +824,13 @@
 
       document.getElementById('btn-copy-connect').addEventListener('click', () => {
         copyText(document.getElementById('cmd-connect-text').textContent, 'Kommando kopierat!');
+      });
+
+      document.querySelectorAll('.cmd-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cmd = btn.getAttribute('data-cmd');
+          copyText(cmd, `Kommando ${cmd} kopierat!`);
+        });
       });
 
       document.addEventListener('visibilitychange', () => {
