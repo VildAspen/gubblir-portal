@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GubbLir CS2 | För oss som vill, men insett att vi inte längre kan</title>
-  <meta name="description" content="Svensk CS2-community för lirare i alla åldrar (15–60+). In-house 5v5 matcher, bra stämning, noll toxic gnäll och 100% vilja.">
+  <meta name="description" content="Svensk CS2-community för lirare i alla åldrar (15–60+). In-house 5v5 matcher, MatchZy practice, noll toxic gnäll och 100% vilja.">
   
   <!-- OpenGraph / Discord Embeds -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gubblir.se">
-  <meta property="og:title" content="GubbLir CS2 | Match Community">
-  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. Svenska 5v5 in-house matcher utan toxic stämning.">
+  <meta property="og:title" content="GubbLir CS2 | Match & Practice Community">
+  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. 5v5 in-house matcher och lineup-practice utan toxic stämning.">
   <meta property="og:theme-color" content="#f59e0b">
 
   <!-- Favicon -->
@@ -101,7 +101,7 @@
       <div class="lg:col-span-7 space-y-6">
         <div class="inline-flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-300 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>MatchZy 5v5 · Stockholm · Subtick Tickless</span>
+          <span>MatchZy 5v5 & Practice · Stockholm · Subtick</span>
         </div>
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase leading-[1.05]">
@@ -110,7 +110,7 @@
         </h1>
 
         <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl">
-          GubbLir är inte ett födelsedatum – det är en mentalitet. Från 15 till 60+ samlas vi kring god stämning, tydlig info och strukturerad Counter-Strike helt utan toxic gnäll och ego-spel.
+          GubbLir är inte ett födelsedatum – det är en mentalitet. Från 15 till 60+ samlas vi kring god stämning, tydliga callouts, 5v5 in-house och grenade practice helt utan toxic gnäll och ego-spel.
         </p>
 
         <!-- Snabbkopiering av IP -->
@@ -151,7 +151,7 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
-            <span class="font-bold text-white text-sm">GubbLir Match Server</span>
+            <span class="font-bold text-white text-sm">GubbLir Match & Practice</span>
           </div>
           <span id="server-status-badge" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md tracking-wider">LIVE</span>
         </div>
@@ -177,8 +177,8 @@
             <span class="font-mono text-zinc-200">212.102.62.209:25152</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-zinc-500">Format:</span>
-            <span class="text-zinc-200">MR12 · Knivrunda · MatchZy</span>
+            <span class="text-zinc-500">Lägen:</span>
+            <span class="text-zinc-200">5v5 MR12 MatchZy & .prac</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-zinc-500">Lösenord:</span>
@@ -217,7 +217,7 @@
     <section class="space-y-4">
       <div class="border-b border-zinc-800/80 pb-3">
         <span class="text-[11px] font-mono text-amber-500 uppercase tracking-widest block font-bold">Hur det fungerar</span>
-        <h2 class="text-xl font-black text-white uppercase tracking-tight">3 Steg till match på GubbLir</h2>
+        <h2 class="text-xl font-black text-white uppercase tracking-tight">3 Steg till lir på GubbLir</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -239,7 +239,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Lås upp lösenordet</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Logga in med Discord högst upp på portalen. Då visas det hemliga serverlösenordet och du får hela kommandot med ett klick.
+            Logga in med Discord högst upp på portalen. Då visas det hemliga serverlösenordet och du får hela anslutningskommandot direkt.
           </p>
         </div>
 
@@ -248,9 +248,9 @@
           <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
             <i data-lucide="swords" class="w-4 h-4"></i>
           </div>
-          <h3 class="text-sm font-bold text-white">Skriv .ready och lira</h3>
+          <h3 class="text-sm font-bold text-white">Kör Match eller Practice</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            När 10 gubbar är inne startas matchen med knivrunda för sida. MatchZy sköter pauser, demos och loggar all statistik automatiskt.
+            Nöta lineups innan matchen med <code class="text-amber-400 font-mono text-[11px]">.prac</code>, eller skriv <code class="text-amber-400 font-mono text-[11px]">.ready</code> när 10 gubbar är inne för att starta 5v5 med knivrunda.
           </p>
         </div>
       </div>
@@ -285,19 +285,30 @@
       </div>
     </section>
 
-    <!-- MatchZy Cheat-Sheet (Fusklapp för servern) -->
-    <section class="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-2xl space-y-4 backdrop-blur-sm">
-      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+    <!-- MatchZy Kommandon (Match vs Practice) -->
+    <section class="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-2xl space-y-5 backdrop-blur-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
         <div>
           <h2 class="text-base font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
             <i data-lucide="terminal" class="w-4 h-4 text-amber-500"></i>
-            <span>MatchZy Fusklapp (Chattkommandon)</span>
+            <span>MatchZy Kommandon</span>
           </h2>
-          <p class="text-xs text-zinc-400">Klicka på valfritt kommando för att kopiera det direkt till chatten</p>
+          <p class="text-xs text-zinc-400">Klicka på valfritt kommando för att kopiera direkt till chatten</p>
+        </div>
+
+        <!-- Flikväljare: Match vs Practice -->
+        <div class="inline-flex bg-zinc-950 p-1 rounded-xl border border-zinc-800 text-xs font-semibold self-start sm:self-auto">
+          <button id="cmd-tab-match" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm">
+            5v5 Match
+          </button>
+          <button id="cmd-tab-prac" class="px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition">
+            Practice (.prac)
+          </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-1">
+      <!-- 1. Match-kommandon -->
+      <div id="cmd-grid-match" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
         <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".ready">
           <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.ready</span>
           <span class="text-[10px] text-zinc-500">Redo för match</span>
@@ -321,6 +332,34 @@
         <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".pause">
           <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.pause</span>
           <span class="text-[10px] text-zinc-500">Teknisk paus</span>
+        </button>
+      </div>
+
+      <!-- 2. Practice-kommandon -->
+      <div id="cmd-grid-prac" class="hidden grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".prac">
+          <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.prac</span>
+          <span class="text-[10px] text-zinc-500">Starta Practice</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".exitprac">
+          <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.exitprac</span>
+          <span class="text-[10px] text-zinc-500">Avsluta & gå till match</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".rethrow">
+          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.rethrow</span>
+          <span class="text-[10px] text-zinc-500">Kasta om senaste granat</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".bot">
+          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.bot</span>
+          <span class="text-[10px] text-zinc-500">Placera bot där du siktar</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".cbot">
+          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.cbot</span>
+          <span class="text-[10px] text-zinc-500">Placera duckande bot</span>
+        </button>
+        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".clear">
+          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.clear</span>
+          <span class="text-[10px] text-zinc-500">Ta bort alla smokes/nades</span>
         </button>
       </div>
     </section>
@@ -681,6 +720,7 @@
     }
 
     function setupTabs() {
+      // Leaderboard vs Senaste matcher
       const btnLeaderboard = document.getElementById('tab-btn-leaderboard');
       const btnMatches = document.getElementById('tab-btn-matches');
       const viewLeaderboard = document.getElementById('view-leaderboard');
@@ -707,6 +747,26 @@
         const query = e.target.value.toLowerCase().trim();
         const filtered = cachedLeaderboard.filter(p => p.name.toLowerCase().includes(query));
         renderLeaderboardTable(filtered);
+      });
+
+      // MatchZy Kommandon (Match vs Practice)
+      const cmdTabMatch = document.getElementById('cmd-tab-match');
+      const cmdTabPrac = document.getElementById('cmd-tab-prac');
+      const cmdGridMatch = document.getElementById('cmd-grid-match');
+      const cmdGridPrac = document.getElementById('cmd-grid-prac');
+
+      cmdTabMatch.addEventListener('click', () => {
+        cmdTabMatch.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm';
+        cmdTabPrac.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
+        cmdGridMatch.classList.remove('hidden');
+        cmdGridPrac.classList.add('hidden');
+      });
+
+      cmdTabPrac.addEventListener('click', () => {
+        cmdTabPrac.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm';
+        cmdTabMatch.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
+        cmdGridPrac.classList.remove('hidden');
+        cmdGridMatch.classList.add('hidden');
       });
     }
 
