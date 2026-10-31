@@ -250,7 +250,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Kör Match eller Practice</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Nöta lineups innan matchen med <code class="text-amber-400 font-mono text-[11px]">.prac</code>, eller skriv <code class="text-amber-400 font-mono text-[11px]">.ready</code> när 10 gubbar är inne för att starta 5v5 med knivrunda.
+            Nöta lineups med <code class="text-amber-400 font-mono text-[11px]">.prac</code>, eller skriv <code class="text-amber-400 font-mono text-[11px]">.ready</code> när 10 gubbar är inne för att starta 5v5 med knivrunda.
           </p>
         </div>
       </div>
@@ -285,7 +285,7 @@
       </div>
     </section>
 
-    <!-- MatchZy Kommandon (Match vs Practice) -->
+    <!-- MatchZy Kommandon (Full Grid med 1-klicks-kopiering) -->
     <section class="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-2xl space-y-5 backdrop-blur-sm">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
         <div>
@@ -293,13 +293,13 @@
             <i data-lucide="terminal" class="w-4 h-4 text-amber-500"></i>
             <span>MatchZy Kommandon</span>
           </h2>
-          <p class="text-xs text-zinc-400">Klicka på valfritt kommando för att kopiera direkt till chatten</p>
+          <p class="text-xs text-zinc-400">Klicka på ett kommando för att kopiera det direkt till chatten</p>
         </div>
 
         <!-- Flikväljare: Match vs Practice -->
         <div class="inline-flex bg-zinc-950 p-1 rounded-xl border border-zinc-800 text-xs font-semibold self-start sm:self-auto">
           <button id="cmd-tab-match" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm">
-            5v5 Match
+            5v5 Match (MR12)
           </button>
           <button id="cmd-tab-prac" class="px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition">
             Practice (.prac)
@@ -307,60 +307,142 @@
         </div>
       </div>
 
-      <!-- 1. Match-kommandon -->
-      <div id="cmd-grid-match" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".ready">
-          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.ready</span>
-          <span class="text-[10px] text-zinc-500">Redo för match</span>
+      <!-- 1. Match-kommandon Grid -->
+      <div id="cmd-grid-match" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-emerald-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".ready">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.ready</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Start</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Gör dig redo för match</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".unready">
-          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.unready</span>
-          <span class="text-[10px] text-zinc-500">Inte redo</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-zinc-700 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".unready">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.unready</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Vänta</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Avbryt redo-status</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".stay">
-          <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.stay</span>
-          <span class="text-[10px] text-zinc-500">Stanna på sida</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-emerald-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".stay">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.stay</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Kniv</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Stanna på sida efter knivrunda</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".switch">
-          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.switch</span>
-          <span class="text-[10px] text-zinc-500">Byt sida efter kniv</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".switch">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.switch</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Kniv</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Byt sida efter knivrunda</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".tac">
-          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.tac</span>
-          <span class="text-[10px] text-zinc-500">Taktisk timeout</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".tac">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.tac</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Timeout</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Rösta om taktisk paus</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".pause">
-          <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.pause</span>
-          <span class="text-[10px] text-zinc-500">Teknisk paus</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-rose-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".pause">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.pause</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Teknisk</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Teknisk paus vid problem</span>
         </button>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-emerald-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".unpause">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.unpause</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Återuppta</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Återuppta matchen</span>
+        </button>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-rose-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".stop">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.stop</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Backup</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Återställ runda efter dc</span>
+        </button>
+
       </div>
 
-      <!-- 2. Practice-kommandon -->
-      <div id="cmd-grid-prac" class="hidden grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".prac">
-          <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.prac</span>
-          <span class="text-[10px] text-zinc-500">Starta Practice</span>
+      <!-- 2. Practice-kommandon Grid (Full bredd) -->
+      <div id="cmd-grid-prac" class="hidden grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-emerald-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".prac">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-emerald-400 group-hover:text-emerald-300">.prac</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Läge</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Starta grenade practice</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".exitprac">
-          <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.exitprac</span>
-          <span class="text-[10px] text-zinc-500">Avsluta & gå till match</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-rose-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".exitprac">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-rose-400 group-hover:text-rose-300">.exitprac</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Avsluta</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Avsluta prac & gå till match</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".rethrow">
-          <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.rethrow</span>
-          <span class="text-[10px] text-zinc-500">Kasta om senaste granat</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".rethrow">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.rethrow</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Nades</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Kasta om din senaste granat</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".bot">
-          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.bot</span>
-          <span class="text-[10px] text-zinc-500">Placera bot där du siktar</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".bot">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-zinc-200 group-hover:text-white">.bot</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Bots</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Placera bot där du siktar</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".cbot">
-          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.cbot</span>
-          <span class="text-[10px] text-zinc-500">Placera duckande bot</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".cbot">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-zinc-200 group-hover:text-white">.cbot</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Bots</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Placera duckande bot</span>
         </button>
-        <button class="cmd-pill flex flex-col p-2.5 bg-zinc-950/80 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 rounded-xl text-left transition group" data-cmd=".clear">
-          <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.clear</span>
-          <span class="text-[10px] text-zinc-500">Ta bort alla smokes/nades</span>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".god">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-amber-400 group-hover:text-amber-300">.god</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Health</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Odödlighet på / av</span>
         </button>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-amber-500/50 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".noflash">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-zinc-200 group-hover:text-white">.noflash</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Vision</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Stäng av flash-effekten</span>
+        </button>
+
+        <button class="cmd-pill p-3 bg-zinc-950/80 hover:bg-zinc-900/90 border border-zinc-800/90 hover:border-zinc-700 rounded-xl text-left transition flex flex-col justify-between gap-1 group active:scale-[0.98]" data-cmd=".clear">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs font-bold text-zinc-300 group-hover:text-white">.clear</span>
+            <span class="text-[9px] font-mono text-zinc-600 border border-zinc-800 px-1 rounded">Nades</span>
+          </div>
+          <span class="text-[11px] text-zinc-400">Rensa bort alla rök/molotovs</span>
+        </button>
+
       </div>
     </section>
 
@@ -749,7 +831,7 @@
         renderLeaderboardTable(filtered);
       });
 
-      // MatchZy Kommandon (Match vs Practice)
+      // MatchZy Kommandon (Match vs Practice) - Nu med strikt grid-växling
       const cmdTabMatch = document.getElementById('cmd-tab-match');
       const cmdTabPrac = document.getElementById('cmd-tab-prac');
       const cmdGridMatch = document.getElementById('cmd-grid-match');
@@ -759,14 +841,18 @@
         cmdTabMatch.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm';
         cmdTabPrac.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
         cmdGridMatch.classList.remove('hidden');
+        cmdGridMatch.classList.add('grid');
         cmdGridPrac.classList.add('hidden');
+        cmdGridPrac.classList.remove('grid');
       });
 
       cmdTabPrac.addEventListener('click', () => {
         cmdTabPrac.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition shadow-sm';
         cmdTabMatch.className = 'px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition';
         cmdGridPrac.classList.remove('hidden');
+        cmdGridPrac.classList.add('grid');
         cmdGridMatch.classList.add('hidden');
+        cmdGridMatch.classList.remove('grid');
       });
     }
 
@@ -886,10 +972,20 @@
         copyText(document.getElementById('cmd-connect-text').textContent, 'Kommando kopierat!');
       });
 
+      // Knappar med visuell inline-feedback
       document.querySelectorAll('.cmd-pill').forEach(btn => {
         btn.addEventListener('click', () => {
           const cmd = btn.getAttribute('data-cmd');
           copyText(cmd, `Kommando ${cmd} kopierat!`);
+          
+          const labelSpan = btn.querySelector('span:last-child');
+          const originalText = labelSpan.textContent;
+          labelSpan.textContent = '✓ Kopierat!';
+          labelSpan.className = 'text-[11px] text-emerald-400 font-bold';
+          setTimeout(() => {
+            labelSpan.textContent = originalText;
+            labelSpan.className = 'text-[11px] text-zinc-400';
+          }, 1500);
         });
       });
 
