@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GUBBLIR.SE // CS2 In-House & Practice</title>
-  <meta name="description" content="Svensk CS2-community för lirare i alla åldrar (15–60+). In-house 5v5 matcher, MatchZy practice, noll toxic gnäll och 100% vilja.">
+  <title>-=GUBBLIR=- // Svensk CS2 Community sedan 2015</title>
+  <meta name="description" content="Grundat våren 2015. En kravlös samlingsplats för likasinnade gubbar och rävar i CS2. Inga här är proffs – vi spelar för gött snack, 5v5 och lagkänsla.">
   
   <!-- OpenGraph / Discord Embeds -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gubblir.se">
-  <meta property="og:title" content="GUBBLIR // Svensk CS2 In-House & Practice">
-  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. 5v5 in-house matcher och lineup-practice utan toxic stämning.">
+  <meta property="og:title" content="-=GUBBLIR=- // Svensk CS2 Community (Est. 2015)">
+  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. Kravlöst 5v5-lir, gött snack och noll solo-kö med okända sedan våren 2015.">
   <meta property="og:theme-color" content="#f59e0b">
 
   <!-- Favicon -->
@@ -53,15 +53,10 @@
       background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
 
-    /* Taktiska avfasade hörn (CS2 / BLAST-stil) */
-    .clip-chamfer {
-      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
-    }
     .clip-btn {
       clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
     }
 
-    /* Tekniska hörnfästen */
     .hud-panel {
       position: relative;
       background: linear-gradient(180deg, rgba(16, 19, 28, 0.85) 0%, rgba(9, 11, 16, 0.95) 100%);
@@ -91,7 +86,6 @@
       pointer-events: none;
     }
 
-    /* Fysiska tangentbords-keycaps */
     .keycap {
       background: linear-gradient(180deg, #1e2230 0%, #12151e 100%);
       border: 1px solid #32384e;
@@ -99,7 +93,6 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
     }
 
-    /* Veto Banned State */
     .map-banned {
       opacity: 0.35;
       filter: grayscale(100%);
@@ -118,18 +111,22 @@
 </head>
 <body class="text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black overflow-x-hidden">
 
-  <!-- TOP TELEMETRY BAR -->
+  <!-- TOP TELEMETRY & HERITAGE BAR -->
   <div class="border-b border-white/[0.06] bg-[#040507] text-[11px] font-mono text-zinc-400">
     <div class="max-w-6xl mx-auto px-5 h-8 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
-          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
-          NODE: STO-01 (DATHOST)
+        <span class="flex items-center gap-1.5 text-amber-400 font-bold">
+          <span>-=GUBBLIR=-</span>
+          <span class="text-zinc-600">//</span>
+          <span class="text-zinc-300">EST. VÅREN 2015</span>
         </span>
         <span class="hidden sm:inline text-zinc-700">|</span>
-        <span class="hidden sm:inline text-zinc-400">TICK: <strong class="text-zinc-200">SUBTICK (64)</strong></span>
+        <span class="hidden sm:flex items-center gap-1.5 text-emerald-400">
+          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+          <span>STO-01 SUBTICK</span>
+        </span>
         <span class="hidden md:inline text-zinc-700">|</span>
-        <span class="hidden md:inline text-zinc-400">PLUGIN: <strong class="text-amber-400">MATCHZY + PRAC</strong></span>
+        <span class="hidden md:inline text-zinc-500">FRÅN TEAMSPEAK & CS:GO TILL DISCORD & CS2</span>
       </div>
       <div class="flex items-center gap-4">
         <button id="top-bar-ip" class="hover:text-amber-400 transition flex items-center gap-1.5">
@@ -152,24 +149,25 @@
         <div class="flex flex-col">
           <div class="flex items-center gap-2">
             <span class="font-display font-bold tracking-wider text-xl text-white leading-none uppercase">GUBBLIR</span>
-            <span class="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/30">SE</span>
+            <span class="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/30">EST. 2015</span>
           </div>
-          <span class="text-[10px] text-zinc-500 font-mono tracking-widest uppercase mt-0.5">CS2 In-House League</span>
+          <span class="text-[10px] text-zinc-500 font-mono tracking-widest uppercase mt-0.5">-=GUBBLIR=- CS2 Community</span>
         </div>
       </a>
 
       <!-- Navigation -->
       <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-zinc-400">
-        <a href="#kommandon" class="px-3.5 py-2 hover:text-amber-400 transition">/Kommandon</a>
-        <a href="#mappool" class="px-3.5 py-2 hover:text-amber-400 transition">/Mappool & Veto</a>
-        <a href="#statistik" class="px-3.5 py-2 hover:text-amber-400 transition">/Topplista</a>
+        <a href="#om-gubblir" class="px-3 py-2 hover:text-amber-400 transition">/Om GubbLir</a>
+        <a href="#mappool" class="px-3 py-2 hover:text-amber-400 transition">/Mappool & Veto</a>
+        <a href="#kommandon" class="px-3 py-2 hover:text-amber-400 transition">/Kommandon</a>
+        <a href="#statistik" class="px-3 py-2 hover:text-amber-400 transition">/Topplista</a>
       </nav>
       
       <!-- Höger: Discord & Profil -->
       <div class="flex items-center gap-3">
         <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-3.5 py-2 transition">
           <i data-lucide="headphones" class="w-3.5 h-3.5 text-amber-500"></i>
-          <span class="hidden sm:inline">Discord</span>
+          <span class="hidden sm:inline">Hoppa in i Discord</span>
         </a>
 
         <div id="user-profile" class="hidden items-center gap-2.5 bg-zinc-900/90 border border-zinc-700/80 pl-2.5 pr-2 py-1.5">
@@ -196,16 +194,16 @@
       <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
         <div class="space-y-4">
           <div class="inline-flex items-center gap-2 border-l-2 border-amber-500 bg-amber-500/[0.06] pl-3 pr-4 py-1 text-xs font-mono uppercase tracking-widest text-amber-400">
-            <span>Säsong 2026 // 100% Vilja · 0% Reaktionsförmåga</span>
+            <span>-=GUBBLIR=- // KRAVLÖS SAMLINGSPLATS SEDAN VÅREN 2015</span>
           </div>
 
-          <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-[62px] tracking-tight text-white uppercase leading-[0.96]">
+          <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-[60px] tracking-tight text-white uppercase leading-[0.96]">
             För oss som vill,<br>
             <span class="text-amber-500 italic">men insett att vi inte längre kan.</span>
           </h1>
 
-          <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl pt-1">
-            GubbLir är en mentalitet, inte en ålder. Oavsett om du är 15 eller 60+ lirar vi strukturerade 5v5 in-house matcher och nöter granater i <code class="text-amber-400 font-mono">.prac</code> – helt befriat från ego-spel och toxic gnäll.
+          <p class="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-xl pt-1">
+            Det finns gott om gamla rävar där ute som vill lira när det dyker upp en lucka i familjelivet, men som är trötta på att solo-köa med okända. Hos oss spelar det ingen roll om du är online dagligen eller en gång i månaden – med ett gött snack i kanalen blir vi indirekt 6 man på banan.
           </p>
         </div>
 
@@ -241,7 +239,7 @@
               <span id="txt-primary-action">Lås upp lösenord med Discord</span>
             </a>
             <span id="cta-helper-text" class="text-xs font-mono text-zinc-500 leading-snug">
-              Verifierar din roll i GubbLir-Discorden och låser upp kommandot direkt.
+              Verifierar din medlemsroll i GubbLir-Discorden och låser upp kommandot direkt.
             </span>
           </div>
         </div>
@@ -295,7 +293,7 @@
               <span class="text-amber-400 font-bold">T-SIDA (5)</span>
             </div>
             <div id="slot-matrix" class="grid grid-cols-10 gap-1">
-              <!-- Renderas via JS: 5 CT blå, 5 T guld -->
+              <!-- Renderas via JS -->
             </div>
           </div>
 
@@ -304,7 +302,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
                 <i data-lucide="radio" class="w-3 h-3 text-amber-500"></i>
-                <span>Live på servern</span>
+                <span>Inne på servern just nu</span>
               </span>
               <span id="roster-count-text" class="text-[10px] font-mono text-zinc-500">0 inne</span>
             </div>
@@ -327,7 +325,89 @@
 
     </div>
 
-    <!-- 2. INTERAKTIV MAPPOOL + BO1 KART-VETO -->
+    <!-- 2. OM -=GUBBLIR=- // ARVET, KULTUREN & VÄRDERINGAR SEDAN 2015 -->
+    <section id="om-gubblir" class="hud-panel p-6 sm:p-8 space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-800 pb-5">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-amber-500 font-bold">// OM -=GUBBLIR=-</span>
+            <span class="text-[10px] font-mono uppercase bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-0.5">Grundat våren 2015</span>
+          </div>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white mt-1">
+            Ingen klan. En kravlös samlingsplats för likasinnade.
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-amber-400/90 bg-amber-500/[0.07] border border-amber-500/30 px-3.5 py-2 shrink-0">
+          "Kvinnor säger att killar aldrig växer upp – men det erkänner vi aldrig =)"
+        </p>
+      </div>
+
+      <!-- Citat-feature: Inga här är proffs + 6:e spelaren -->
+      <div class="bg-[#06070a] border-l-4 border-amber-500 border-y border-r border-zinc-800/90 p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-8 space-y-2">
+          <span class="text-[10px] font-mono uppercase tracking-widest text-amber-500 block font-bold">GubbLirs Gyllene Regel (2015 &ndash; 2026)</span>
+          <p class="font-display font-bold text-lg sm:text-xl text-white uppercase leading-snug">
+            "Inga här är proffs – och anser man att man själv är det så är tyvärr inte GubbLir något för dig."
+          </p>
+          <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            Trots att nivån diffar friskt är strävan alltid att vinna matchen. Och det gör man oftast då man <strong class="text-zinc-200">indirekt blir 6 pers på banan</strong> om man har ett gött snack och försöker spela som ett lag. Har vi gjort så gott vi kan och ändå förlorar så är det bara att ladda om och vinna nästa!
+          </p>
+        </div>
+        <div class="lg:col-span-4 bg-[#090b10] border border-zinc-800 p-4 space-y-2.5 font-mono text-xs">
+          <div class="text-[10px] text-zinc-500 uppercase tracking-widest border-b border-zinc-800 pb-1.5">Värdegrund i korthet</div>
+          <div class="flex items-start gap-2 text-zinc-300">
+            <span class="text-emerald-400 font-bold">&gt;</span>
+            <span>Mentalitet före ålder (15 till 60+)</span>
+          </div>
+          <div class="flex items-start gap-2 text-zinc-300">
+            <span class="text-emerald-400 font-bold">&gt;</span>
+            <span>Behandla andra som du själv vill bli behandlad</span>
+          </div>
+          <div class="flex items-start gap-2 text-zinc-300">
+            <span class="text-emerald-400 font-bold">&gt;</span>
+            <span>Respektera både med- och motspelare</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Kort: Bakgrund, Vardagsluckan & Röstkanals-etikett -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-[#06070a] border border-zinc-800/90 p-5 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase text-amber-400 font-bold">01 // Bakgrunden</span>
+            <i data-lucide="history" class="w-4 h-4 text-zinc-600"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white uppercase">Från 10 gubbar våren 2015</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            GubbLir startade våren 2015 av ett tiotal spelsugna rävar i CS:GO. Tanken var enkel: att slippa lägga halva kvällen på att jaga rätt på folk eller tvingas singelköa med okända.
+          </p>
+        </div>
+
+        <div class="bg-[#06070a] border border-zinc-800/90 p-5 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase text-amber-400 font-bold">02 // Noll krav</span>
+            <i data-lucide="calendar-clock" class="w-4 h-4 text-zinc-600"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white uppercase">När luckan i familjelivet dyker upp</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Vill man vara online dagligen så är man det, och kan man bara spela en gång i månaden när vardagen tillåter så spelar det absolut ingen roll. Här finns alltid likasinnade redo att lira.
+          </p>
+        </div>
+
+        <div class="bg-[#06070a] border border-zinc-800/90 p-5 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase text-amber-400 font-bold">03 // Kanal-etikett</span>
+            <i data-lucide="mic" class="w-4 h-4 text-zinc-600"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white uppercase">Vänta tills rundan är slut</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Hoppa in i valfri röstkanal på Discord och lyssna av. Sitter gubbarna mitt i en match? <strong class="text-zinc-200">Avvakta tills du hör att rundan är slut</strong> och stäm då av om någon ska hoppa av eller om det finns plats.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERAKTIV MAPPOOL + BO1 KART-VETO -->
     <section id="mappool" class="hud-panel p-6 space-y-6 scroll-mt-20">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
         <div>
@@ -359,11 +439,11 @@
 
       <!-- 8 CS2 Kartkort med Officiella Emblem & Radar -->
       <div id="map-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <!-- Renderas dynamiskt från MAPS-arrayen för 100% konsekvent kod -->
+        <!-- Renderas dynamiskt -->
       </div>
     </section>
 
-    <!-- 3. MATCHZY KOMMANDON, PRACTICE & CFG-BYGGARE -->
+    <!-- 4. MATCHZY KOMMANDON, PRACTICE & CFG-BYGGARE -->
     <section id="kommandon" class="hud-panel p-6 space-y-6 scroll-mt-20">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
         <div>
@@ -583,7 +663,7 @@
       </div>
     </section>
 
-    <!-- 4. STATISTIK & RANKING HUB (Leetify / HLTV Style) -->
+    <!-- 5. STATISTIK & RANKING HUB -->
     <section id="statistik" class="hud-panel p-6 space-y-6 scroll-mt-20">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
         <div>
@@ -648,22 +728,6 @@
       </div>
     </section>
 
-    <!-- 5. MANIFESTO / GRUNDREGEL -->
-    <section class="border-l-4 border-amber-500 bg-[#090b10] border-y border-r border-zinc-800/90 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div class="space-y-1 max-w-2xl">
-        <div class="flex items-center gap-2 text-amber-500 font-mono font-bold text-xs uppercase tracking-widest">
-          <i data-lucide="shield-alert" class="w-4 h-4"></i>
-          <span>GubbLirs Grundregel // Zero Toxicity</span>
-        </div>
-        <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-          Vi spelar för att vinna rundan, men aldrig på bekostnad av stämningen i kanalen. Bra callouts, högt i tak och noll gnäll när någon bommar en spray. Fusk eller toxic beteende leder till omedelbar permanent ban.
-        </p>
-      </div>
-      <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="shrink-0 font-mono text-xs font-bold uppercase text-amber-400 hover:text-black hover:bg-amber-500 bg-amber-500/10 px-5 py-3 border border-amber-500/40 transition text-center">
-        Hoppa in i Discord &rarr;
-      </a>
-    </section>
-
   </main>
 
   <!-- SPELARKORT MODAL -->
@@ -674,7 +738,7 @@
           <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-display font-bold text-lg" id="modal-player-rank">#1</div>
           <div>
             <h3 id="modal-player-name" class="font-display font-bold text-xl text-white uppercase">Spelare</h3>
-            <span class="text-[10px] font-mono uppercase text-zinc-400">GubbLir Verifierad Spelarprofil</span>
+            <span class="text-[10px] font-mono uppercase text-zinc-400">-=GUBBLIR=- In-House Profil</span>
           </div>
         </div>
         <button id="btn-close-modal" class="p-1.5 text-zinc-500 hover:text-white bg-zinc-900 border border-zinc-800">
@@ -711,7 +775,7 @@
   <!-- FOOTER -->
   <footer class="border-t border-white/[0.06] bg-[#040507] py-6 text-xs font-mono text-zinc-500 relative z-10">
     <div class="max-w-6xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>GUBBLIR.SE // FÖR OSS SOM VILL, MEN INSETT ATT VI INTE LÄNGRE KAN.</span>
+      <span>-=GUBBLIR=- // EST. VÅREN 2015 · FÖR OSS SOM VILL, MEN INSETT ATT VI INTE LÄNGRE KAN.</span>
       <div class="flex items-center gap-4">
         <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition uppercase">Discord</a>
         <span>//</span>
@@ -801,7 +865,6 @@
       }
     }
 
-    // 5v5 CT (Blå) vs T (Amber) Barometer
     function renderSlotMatrix(playerCount) {
       const matrix = document.getElementById('slot-matrix');
       const subtext = document.getElementById('lobby-status-subtext');
@@ -906,7 +969,6 @@
       } catch (e) {}
     }
 
-    // Renderar de 8 CS2-kartorna med Emblem, Radar & Veto-stöd
     function renderMapPool() {
       const grid = document.getElementById('map-grid');
       const remaining = MAPS.filter(m => !bannedMaps.has(m.id));
@@ -1014,12 +1076,11 @@
       });
     }
 
-    // Nedladdningsbar gubblir_prac.cfg
     function setupCfgDownload() {
       document.getElementById('btn-download-cfg').addEventListener('click', () => {
         const cfgContent = [
           '// ==========================================',
-          '// GUBBLIR.SE - OFFICIAL PRACTICE KEYBINDS',
+          '// -=GUBBLIR=- OFFICIAL PRACTICE KEYBINDS',
           '// Lagg filen i: Counter-Strike Global Offensive/game/csgo/cfg/',
           '// Skriv i konsolen: exec gubblir_prac',
           '// ==========================================',
@@ -1027,7 +1088,7 @@
           'bind "j" "say .rethrow"',
           'bind "k" "say .bot"',
           'bind "l" "say .clear"',
-          'echo "[GUBBLIR.SE] Practice-keybinds (V, J, K, L) har laddats!"'
+          'echo "[-=GUBBLIR=-] Practice-keybinds (V, J, K, L) har laddats!"'
         ].join('\n');
 
         const blob = new Blob([cfgContent], { type: 'text/plain;charset=utf-8' });
