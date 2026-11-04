@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GubbLir — För oss som vill, men insett att vi inte längre kan</title>
-  <meta name="description" content="Svensk CS2-community sedan 2015. Kravlöst 5v5-lir, practice och gött snack.">
+  <meta name="description" content="Svensk CS2-community sedan våren 2015. Kravlöst 5v5-lir, practice och gött snack.">
   
   <!-- OpenGraph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gubblir.se">
-  <meta property="og:title" content="GubbLir — Svensk CS2 Community">
-  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. Kravlöst 5v5-lir sedan 2015.">
+  <meta property="og:title" content="GubbLir — Svensk CS2 Community (Est. 2015)">
+  <meta property="og:description" content="För oss som vill, men som insett att vi inte längre kan. Kravlöst 5v5-lir och grenade practice utan toxic stämning.">
   <meta property="og:theme-color" content="#000000">
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230c0c0e'/><text x='50%' y='62%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='46' fill='%23f59e0b'>GL</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230a0a0c'/><rect x='4' y='4' width='92' height='92' rx='20' fill='none' stroke='%23f59e0b' stroke-width='4' stroke-opacity='0.35'/><text x='50%' y='62%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='46' fill='%23f59e0b'>GL</text></svg>">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -37,18 +37,23 @@
   </script>
   <style>
     body {
-      background-color: #000000;
+      background-color: #030304;
       color: #f4f4f5;
       -webkit-font-smoothing: antialiased;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
-    /* Apple Pro Dark Bento Surface */
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Apple / Linear Pro Bento Surface */
     .bento-card {
-      background: rgba(18, 18, 21, 0.75);
+      background: radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.035) 0%, rgba(12, 12, 15, 0.85) 100%);
       border: 1px solid rgba(255, 255, 255, 0.07);
       box-shadow: 
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-        0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.09),
+        0 24px 48px -12px rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
     }
@@ -56,17 +61,28 @@
     .bento-inner {
       background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.03);
     }
 
-    .bento-inner-hover {
+    .bento-interactive {
       background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.03);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .bento-inner-hover:hover {
+    .bento-interactive:hover {
       background: rgba(255, 255, 255, 0.055);
       border-color: rgba(255, 255, 255, 0.14);
       transform: translateY(-1px);
+    }
+    .bento-interactive:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    /* Masked Radar Backdrop */
+    .radar-mask {
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 75%);
+      -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 75%);
     }
 
     /* Veto States */
@@ -75,40 +91,42 @@
       filter: grayscale(100%);
     }
     .map-winner {
-      border-color: rgba(52, 211, 153, 0.5) !important;
-      background: rgba(16, 185, 129, 0.06) !important;
+      border-color: rgba(52, 211, 153, 0.55) !important;
+      background: rgba(16, 185, 129, 0.08) !important;
     }
 
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.6); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black overflow-x-hidden">
 
-  <!-- Subtilt Toppljus -->
+  <!-- Ambient Top Spotlight -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-48 left-1/2 -translate-x-1/2 w-[900px] h-[420px] bg-amber-500/[0.08] blur-[160px] rounded-full"></div>
+    <div class="absolute -top-56 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-amber-500/[0.07] blur-[160px] rounded-full"></div>
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/[0.015] blur-[140px] rounded-full"></div>
   </div>
 
-  <!-- Floating Apple-Style Navbar -->
-  <header class="sticky top-0 z-40 bg-black/70 backdrop-blur-2xl border-b border-white/[0.06]">
+  <!-- Floating Glass Header -->
+  <header class="sticky top-0 z-40 bg-[#030304]/75 backdrop-blur-2xl border-b border-white/[0.06]">
     <div class="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5 group">
-        <span class="w-7 h-7 rounded-lg bg-amber-500 text-black font-extrabold text-xs flex items-center justify-center tracking-tighter group-hover:scale-105 transition">
+        <span class="w-7 h-7 rounded-lg bg-gradient-to-b from-amber-400 to-amber-500 text-black font-extrabold text-xs flex items-center justify-center tracking-tighter shadow-sm shadow-amber-500/20 group-hover:scale-105 transition">
           GL
         </span>
         <span class="font-bold tracking-tight text-sm text-white">GubbLir</span>
-        <span class="text-[11px] text-zinc-500 hidden sm:inline">Est. 2015</span>
+        <span class="text-[11px] text-zinc-500 font-medium hidden sm:inline">Est. 2015</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-400">
         <a href="#statistik" class="hover:text-white transition">Topplista</a>
-        <a href="#mappool" class="hover:text-white transition">Mappool</a>
-        <a href="#kommandon" class="hover:text-white transition">Kommandon</a>
+        <a href="#mappool" class="hover:text-white transition">Mappool & Veto</a>
+        <a href="#verktyg" class="hover:text-white transition">Kommandon & Lagdelare</a>
       </nav>
       
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5">
         <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-zinc-300 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5">
           <span>Discord</span>
           <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-zinc-400"></i>
@@ -126,22 +144,22 @@
   </header>
 
   <!-- Main Content -->
-  <main class="relative z-10 flex-grow max-w-5xl mx-auto px-5 pt-12 pb-20 w-full space-y-6">
+  <main class="relative z-10 flex-grow max-w-5xl mx-auto px-5 pt-12 pb-24 w-full space-y-6">
 
-    <!-- HERO HEADER (Apple Keynote-stil) -->
+    <!-- HERO HEADER -->
     <div class="text-center max-w-2xl mx-auto space-y-4 pb-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-medium text-zinc-300">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>Svensk CS2 In-House Community sedan 2015</span>
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-medium text-zinc-300">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        <span>-=GUBBLIR=- · Svensk CS2 In-House sedan våren 2015</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.06]">
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
         För oss som vill.<br>
         <span class="text-transparent bg-clip-text bg-gradient-to-b from-zinc-300 to-zinc-600">Men insett att vi inte längre kan.</span>
       </h1>
 
-      <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mx-auto font-normal">
-        En kravlös samlingsplats när luckan i vardagen dyker upp. Inga här är proffs – vi spelar för gött snack, schyssta 5v5-matcher och lagkänsla.
+      <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mx-auto">
+        En kravlös samlingsplats när det dyker upp en lucka i vardagen. Inga här är proffs – med ett gött snack i kanalen blir vi indirekt 6 man på banan.
       </p>
     </div>
 
@@ -149,20 +167,20 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
       
       <!-- Vänster Bento (7 kol): Anslut & Lås upp -->
-      <div class="lg:col-span-7 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-8">
-        <div class="space-y-6">
-          <div class="flex items-center justify-between">
+      <div class="lg:col-span-7 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-7">
+        <div class="space-y-5">
+          <div class="flex items-center justify-between gap-2">
             <div>
               <h2 class="text-lg font-bold text-white tracking-tight">Anslut till servern</h2>
-              <p class="text-xs text-zinc-400 mt-0.5">Klistra in i CS2-konsolen (~) eller lås upp lösenordet via Discord.</p>
+              <p class="text-xs text-zinc-400 mt-0.5">Klistra in kommandot i CS2-konsolen (<code class="text-zinc-300 font-mono">~</code>) för att hoppa in.</p>
             </div>
-            <span id="unlock-status-badge" class="text-[11px] font-medium bg-white/[0.05] text-zinc-400 border border-white/[0.07] px-2.5 py-1 rounded-full">
+            <span id="unlock-status-badge" class="text-[11px] font-medium bg-white/[0.05] text-zinc-400 border border-white/[0.07] px-2.5 py-1 rounded-full shrink-0">
               Lösenord låst
             </span>
           </div>
 
           <!-- Konsol-bar -->
-          <div class="bento-inner rounded-2xl p-2 pl-4 flex items-center justify-between gap-3">
+          <div class="bento-inner rounded-2xl p-2 pl-4 flex items-center justify-between gap-3 group hover:border-white/[0.12] transition">
             <div class="truncate font-mono text-xs sm:text-sm select-all">
               <span id="cmd-connect-text" class="text-amber-400 font-medium">connect cs.gubblir.se:25152</span><span id="cmd-pw-placeholder" class="text-zinc-600 select-none">; password ••••••••</span>
             </div>
@@ -174,21 +192,21 @@
 
           <!-- Enda Primära Knappen -->
           <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-1">
-            <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-6 py-3.5 rounded-2xl transition active:scale-[0.98] cursor-pointer shrink-0 shadow-lg shadow-amber-500/10">
+            <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-6 py-3.5 rounded-2xl transition active:scale-[0.98] cursor-pointer shrink-0 shadow-lg shadow-amber-500/15">
               <i id="icon-primary-action" data-lucide="key-round" class="w-4 h-4"></i>
               <span id="txt-primary-action">Lås upp lösenord med Discord</span>
             </a>
             <span id="cta-helper-text" class="text-xs text-zinc-500 leading-relaxed">
-              Verifierar din medlemsroll automatiskt.
+              Verifierar din medlemsroll i GubbLir-Discorden direkt.
             </span>
           </div>
         </div>
 
-        <!-- Diskreta GubbLir-principer i botten av kortet -->
+        <!-- 3 Kärnprinciper i botten -->
         <div class="pt-5 border-t border-white/[0.06] grid grid-cols-3 gap-4 text-xs">
           <div>
-            <span class="text-zinc-500 block">Frekvens</span>
-            <span class="text-zinc-200 font-medium mt-0.5 block">Noll närvarokrav</span>
+            <span class="text-zinc-500 block">Närvaro</span>
+            <span class="text-zinc-200 font-medium mt-0.5 block">100% kravlöst</span>
           </div>
           <div>
             <span class="text-zinc-500 block">Mentalitet</span>
@@ -202,66 +220,80 @@
       </div>
 
       <!-- Höger Bento (5 kol): Live Server & Spelarlista -->
-      <div class="lg:col-span-5 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-6">
-        <div class="space-y-5">
+      <div class="lg:col-span-5 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-5 relative overflow-hidden">
+        
+        <!-- Maskad Radar-bakgrund -->
+        <img id="srv-radar-bg" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_dust2_radar_psd.png" alt="" class="radar-mask absolute -right-10 -top-10 w-60 h-60 object-contain opacity-[0.14] pointer-events-none select-none transition-all duration-500" onerror="this.style.display='none'">
+
+        <div class="space-y-4 relative z-10">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
               <span class="relative flex h-2.5 w-2.5">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
-              <span class="text-sm font-semibold text-white">Stockholm #1</span>
+              <span class="text-sm font-semibold text-white">GubbLir #1 · Stockholm</span>
             </div>
-            <button id="btn-refresh-roster" class="p-1.5 text-zinc-400 hover:text-white bento-inner rounded-xl transition" title="Uppdatera">
-              <i id="icon-refresh-roster" data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-            </button>
+            <div class="flex items-center gap-2">
+              <span id="srv-mode-pill" class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Redo
+              </span>
+              <button id="btn-refresh-roster" class="p-1.5 text-zinc-400 hover:text-white bento-inner rounded-xl transition" title="Uppdatera serverstatus">
+                <i id="icon-refresh-roster" data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
           </div>
 
           <!-- Karta & Spelarantal -->
           <div class="bento-inner rounded-2xl p-4 flex items-center justify-between">
             <div class="flex items-center gap-3.5">
-              <img id="srv-map-pin" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/de_dust2.png" alt="" class="w-10 h-10 object-contain" onerror="this.style.display='none'">
+              <img id="srv-map-pin" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/de_dust2.png" alt="" class="w-11 h-11 object-contain drop-shadow" onerror="this.style.display='none'">
               <div>
                 <div id="srv-map-clean" class="text-base font-bold text-white leading-tight">Dust II</div>
-                <div id="srv-map" class="text-xs font-mono text-zinc-500">de_dust2</div>
+                <div id="srv-map" class="text-xs font-mono text-zinc-500 mt-0.5">de_dust2</div>
               </div>
             </div>
-            <div class="text-right">
-              <div id="srv-players" class="text-xl font-bold text-white font-mono">0 / 10</div>
-              <div id="lobby-status-subtext" class="text-[11px] text-zinc-500">Redo för match</div>
+            <div class="text-right tabular-nums">
+              <div id="srv-players" class="text-2xl font-bold text-white font-mono">0 / 10</div>
+              <div id="lobby-status-subtext" class="text-[11px] text-zinc-500">10 platser lediga</div>
             </div>
           </div>
 
-          <!-- Slimmad 10-slot indikator -->
-          <div id="slot-matrix" class="grid grid-cols-10 gap-1.5"></div>
+          <!-- 5v5 Split Indikator (5 CT Blå / 5 T Guld) -->
+          <div class="space-y-1.5">
+            <div id="slot-matrix" class="grid grid-cols-10 gap-1.5"></div>
+          </div>
 
           <!-- Spelarlista -->
           <div class="space-y-2 pt-1">
             <div class="flex items-center justify-between text-xs text-zinc-500">
-              <span>Anslutna spelare</span>
-              <span id="roster-count-text" class="font-mono text-[11px]">0 inne</span>
+              <span>Inne på servern just nu</span>
+              <span id="roster-count-text" class="font-mono text-[11px] tabular-nums">0 inne</span>
             </div>
-            <div id="roster-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-32 overflow-y-auto pr-1"></div>
+            <div id="roster-list" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-32 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-zinc-500">
-          <span class="font-mono">212.102.62.209:25152</span>
+        <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-zinc-500 relative z-10">
+          <span class="font-mono select-all">212.102.62.209:25152</span>
           <span id="srv-password-field" class="text-zinc-400">Låst</span>
         </div>
       </div>
 
     </div>
 
-    <!-- BENTO ROW 2: TOPPLISTA & SENASTE MATCHER -->
+    <!-- BENTO ROW 2: TOPPLISTA, KPI-BAR & SENASTE MATCHER -->
     <section id="statistik" class="bento-card rounded-3xl p-7 space-y-6 scroll-mt-20">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2.5">
             <h2 class="text-lg font-bold text-white tracking-tight">Statistik & Ranking</h2>
-            <span id="db-sync-badge" class="text-[11px] text-zinc-500 font-medium">Synkar...</span>
+            <span id="db-sync-badge" class="inline-flex items-center gap-1.5 text-[11px] text-zinc-500 font-medium bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-white/[0.06]">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>Synkar...</span>
+            </span>
           </div>
-          <p class="text-xs text-zinc-400 mt-0.5">Automatisk statistik från våra 5v5 in-house matcher.</p>
+          <p class="text-xs text-zinc-400 mt-0.5">Klicka på en kolumn för att sortera eller på en spelare för att se spelarkortet.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">
@@ -280,24 +312,44 @@
             </button>
           </div>
 
-          <button id="btn-refresh-stats" class="p-2 text-zinc-400 hover:text-white bento-inner rounded-full transition" title="Uppdatera">
+          <button id="btn-refresh-stats" class="p-2 text-zinc-400 hover:text-white bento-inner rounded-full transition" title="Uppdatera statistik">
             <i id="icon-refresh-stats" data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
           </button>
         </div>
       </div>
 
+      <!-- Snabb-KPI Sammanfattning -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 tabular-nums">
+        <div class="bento-inner rounded-2xl p-3.5">
+          <span class="text-[11px] text-zinc-500 block">Rankade Gubbar</span>
+          <span id="kpi-players" class="text-lg font-bold text-white font-mono mt-0.5 block">–</span>
+        </div>
+        <div class="bento-inner rounded-2xl p-3.5">
+          <span class="text-[11px] text-zinc-500 block">Spelade Matcher</span>
+          <span id="kpi-matches" class="text-lg font-bold text-white font-mono mt-0.5 block">–</span>
+        </div>
+        <div class="bento-inner rounded-2xl p-3.5">
+          <span class="text-[11px] text-zinc-500 block">Snitt K/D på servern</span>
+          <span id="kpi-avg-kd" class="text-lg font-bold text-emerald-400 font-mono mt-0.5 block">–</span>
+        </div>
+        <div class="bento-inner rounded-2xl p-3.5">
+          <span class="text-[11px] text-zinc-500 block">Senast spelad karta</span>
+          <span id="kpi-last-map" class="text-lg font-bold text-amber-400 font-mono mt-0.5 block truncate">–</span>
+        </div>
+      </div>
+
       <!-- Flik 1: Topplista -->
       <div id="view-leaderboard" class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
+        <table class="w-full text-left text-xs tabular-nums">
           <thead>
             <tr class="text-[11px] text-zinc-500 border-b border-white/[0.06] select-none font-medium">
-              <th class="pb-3 pl-3 w-12">#</th>
+              <th class="pb-3 pl-3 w-14">Rank</th>
               <th class="pb-3">Spelare</th>
-              <th class="pb-3 text-center cursor-pointer hover:text-white transition" data-sort="matches_played">Matcher</th>
-              <th class="pb-3 text-center cursor-pointer hover:text-white transition text-white" data-sort="kd_ratio">K/D</th>
-              <th class="pb-3 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="total_kills">Kills / Deaths</th>
-              <th class="pb-3 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="hs_percentage">HS%</th>
-              <th class="pb-3 text-right pr-3 cursor-pointer hover:text-white transition" data-sort="total_mvps">MVPs</th>
+              <th class="pb-3 text-center cursor-pointer hover:text-white transition" data-sort="matches_played">Matcher ↕</th>
+              <th class="pb-3 text-left pl-4 cursor-pointer hover:text-white transition text-white" data-sort="kd_ratio">K/D Ratio ↕</th>
+              <th class="pb-3 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="total_kills">Kills / Deaths ↕</th>
+              <th class="pb-3 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="hs_percentage">HS% ↕</th>
+              <th class="pb-3 text-right pr-3 cursor-pointer hover:text-white transition" data-sort="total_mvps">MVPs ↕</th>
             </tr>
           </thead>
           <tbody id="leaderboard-tbody" class="divide-y divide-white/[0.04]"></tbody>
@@ -310,203 +362,229 @@
       </div>
     </section>
 
-    <!-- BENTO ROW 3: MAPPOOL (MED VETO) & KOMMANDON -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+    <!-- BENTO ROW 3: MAPPOOL (MED VETO) & VERKTYG (KOMMANDON + 5V5 LAGDELARE) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
 
-      <!-- Mappool & Veto (6 kol) -->
-      <section id="mappool" class="lg:col-span-6 bento-card rounded-3xl p-7 space-y-5 scroll-mt-20">
-        <div class="flex items-center justify-between gap-2">
-          <div>
-            <h2 class="text-lg font-bold text-white tracking-tight">Mappool</h2>
-            <p id="mappool-subtitle" class="text-xs text-zinc-400 mt-0.5">Klicka för att kopiera <code class="text-zinc-200 font-mono">.map</code> eller kör kart-veto.</p>
-          </div>
-          <div class="flex items-center gap-1.5 text-xs">
-            <button id="btn-random-map" class="bento-inner-hover px-3 py-1.5 rounded-full text-zinc-300 font-medium flex items-center gap-1.5" title="Slumpa en karta">
-              <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>Slumpa</span>
-            </button>
-            <button id="btn-toggle-veto" class="bento-inner-hover px-3.5 py-1.5 rounded-full text-amber-400 font-medium">
-              <span id="txt-toggle-veto">Veto</span>
-            </button>
-          </div>
-        </div>
-
-        <div id="map-grid" class="grid grid-cols-2 gap-2.5"></div>
-      </section>
-
-      <!-- Kommandon & Binds (6 kol) -->
-      <section id="kommandon" class="lg:col-span-6 bento-card rounded-3xl p-7 space-y-5 scroll-mt-20">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h2 class="text-lg font-bold text-white tracking-tight">Kommandon</h2>
-            <p class="text-xs text-zinc-400 mt-0.5">Klicka för 1-klicks-kopiering till CS2.</p>
-          </div>
-
-          <!-- Apple Segmented Control -->
-          <div class="inline-flex bg-white/[0.04] p-1 rounded-full border border-white/[0.06] text-xs font-medium self-start">
-            <button id="cmd-tab-match" class="px-3.5 py-1 rounded-full bg-white text-black font-semibold transition">
-              Match
-            </button>
-            <button id="cmd-tab-prac" class="px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition">
-              Practice
-            </button>
-            <button id="cmd-tab-binds" class="px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition">
-              Binds
-            </button>
-          </div>
-        </div>
-
-        <!-- 1. Match -->
-        <div id="cmd-grid-match" class="grid grid-cols-2 gap-2.5">
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".ready">
+      <!-- Mappool & Veto (5 kol) -->
+      <section id="mappool" class="lg:col-span-5 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-5 scroll-mt-20">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between gap-2">
             <div>
-              <span class="font-mono text-xs font-semibold text-emerald-400 block">.ready</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Redo för match</span>
+              <h2 class="text-lg font-bold text-white tracking-tight">Mappool</h2>
+              <p id="mappool-subtitle" class="text-xs text-zinc-400 mt-0.5">Klicka för att kopiera <code class="text-zinc-200 font-mono">.map</code> eller banna i Veto.</p>
             </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".unready">
-            <div>
-              <span class="font-mono text-xs font-semibold text-zinc-200 block">.unready</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Avbryt redo</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".stay">
-            <div>
-              <span class="font-mono text-xs font-semibold text-emerald-400 block">.stay</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Stanna på sida</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".switch">
-            <div>
-              <span class="font-mono text-xs font-semibold text-amber-400 block">.switch</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Byt sida</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".tac">
-            <div>
-              <span class="font-mono text-xs font-semibold text-amber-400 block">.tac</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Taktisk timeout</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".pause">
-            <div>
-              <span class="font-mono text-xs font-semibold text-rose-400 block">.pause</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Teknisk paus</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".unpause">
-            <div>
-              <span class="font-mono text-xs font-semibold text-emerald-400 block">.unpause</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Fortsätt match</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".stop">
-            <div>
-              <span class="font-mono text-xs font-semibold text-rose-400 block">.stop</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Återställ runda</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-        </div>
-
-        <!-- 2. Practice -->
-        <div id="cmd-grid-prac" class="hidden grid-cols-2 gap-2.5">
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".prac">
-            <div>
-              <span class="font-mono text-xs font-semibold text-emerald-400 block">.prac</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Starta practice</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".rethrow">
-            <div>
-              <span class="font-mono text-xs font-semibold text-amber-400 block">.rethrow</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Kasta om granat</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".bot">
-            <div>
-              <span class="font-mono text-xs font-semibold text-white block">.bot</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Placera bot</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".cbot">
-            <div>
-              <span class="font-mono text-xs font-semibold text-white block">.cbot</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Duckande bot</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".spawn 1">
-            <div>
-              <span class="font-mono text-xs font-semibold text-amber-400 block">.spawn 1</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Hoppa till spawn</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".noflash">
-            <div>
-              <span class="font-mono text-xs font-semibold text-white block">.noflash</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Ingen flash-effekt</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".clear">
-            <div>
-              <span class="font-mono text-xs font-semibold text-white block">.clear</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Rensa rök & eld</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-
-          <button class="cmd-pill bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between" data-cmd=".exitprac">
-            <div>
-              <span class="font-mono text-xs font-semibold text-rose-400 block">.exitprac</span>
-              <span class="cmd-desc text-[11px] text-zinc-400">Avsluta practice</span>
-            </div>
-            <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-600"></i>
-          </button>
-        </div>
-
-        <!-- 3. Binds -->
-        <div id="cmd-grid-binds" class="hidden space-y-3">
-          <div class="bento-inner p-4 rounded-2xl space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-white">Practice Keybinds (V, J, K, L)</span>
-              <button id="btn-download-cfg" class="text-[11px] font-medium text-amber-400 hover:underline flex items-center gap-1">
-                <i data-lucide="download" class="w-3 h-3"></i>
-                <span>gubblir_prac.cfg</span>
+            <div class="flex items-center gap-1.5 text-xs shrink-0">
+              <button id="btn-random-map" class="bento-interactive px-3 py-1.5 rounded-full text-zinc-300 font-medium flex items-center gap-1.5" title="Slumpa en karta">
+                <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Slumpa</span>
+              </button>
+              <button id="btn-toggle-veto" class="bento-interactive px-3.5 py-1.5 rounded-full text-amber-400 font-medium">
+                <span id="txt-toggle-veto">Veto</span>
               </button>
             </div>
-            <p class="text-[11px] font-mono text-zinc-400 break-all">
-              bind "v" "noclip"; bind "j" "say .rethrow"; bind "k" "say .bot"; bind "l" "say .clear"
-            </p>
-            <button class="cmd-pill w-full bg-white hover:bg-zinc-200 text-black font-semibold text-xs py-2.5 rounded-xl transition" data-cmd='bind "v" "noclip"; bind "j" "say .rethrow"; bind "k" "say .bot"; bind "l" "say .clear"'>
-              <span class="cmd-desc">Kopiera alla 4 binds</span>
+          </div>
+
+          <div id="map-grid" class="grid grid-cols-2 gap-2.5"></div>
+        </div>
+
+        <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-zinc-500">
+          <span>MR12 Tävlingsformat</span>
+          <span>Knivrunda · Overtime (10k)</span>
+        </div>
+      </section>
+
+      <!-- Kommandon, Practice, Binds & 5v5 Lagdelare (7 kol) -->
+      <section id="verktyg" class="lg:col-span-7 bento-card rounded-3xl p-7 flex flex-col justify-between space-y-5 scroll-mt-20">
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-bold text-white tracking-tight">Spelverktyg & Kommandon</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">1-klicks-kopiering av chattkommandon, practice-binds och 5v5 lagdelare.</p>
+            </div>
+
+            <!-- Apple Segmented Control (4 lägen) -->
+            <div class="inline-flex flex-wrap bg-white/[0.04] p-1 rounded-full border border-white/[0.06] text-xs font-medium self-start">
+              <button id="cmd-tab-match" class="px-3.5 py-1 rounded-full bg-white text-black font-semibold transition">
+                Match
+              </button>
+              <button id="cmd-tab-prac" class="px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition">
+                Practice
+              </button>
+              <button id="cmd-tab-binds" class="px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition">
+                Binds
+              </button>
+              <button id="cmd-tab-teams" class="px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition flex items-center gap-1">
+                <span>Lagdelare</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 1. Match -->
+          <div id="cmd-grid-match" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".ready">
+              <span class="font-mono text-xs font-semibold text-emerald-400">.ready</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Redo för match</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".unready">
+              <span class="font-mono text-xs font-semibold text-zinc-200">.unready</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Avbryt redo</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".stay">
+              <span class="font-mono text-xs font-semibold text-emerald-400">.stay</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Stanna på sida</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".switch">
+              <span class="font-mono text-xs font-semibold text-amber-400">.switch</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Byt sida</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".tac">
+              <span class="font-mono text-xs font-semibold text-amber-400">.tac</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Taktisk timeout</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".pause">
+              <span class="font-mono text-xs font-semibold text-rose-400">.pause</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Teknisk paus</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".unpause">
+              <span class="font-mono text-xs font-semibold text-emerald-400">.unpause</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Fortsätt match</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".stop">
+              <span class="font-mono text-xs font-semibold text-rose-400">.stop</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Återställ runda</span>
             </button>
           </div>
+
+          <!-- 2. Practice -->
+          <div id="cmd-grid-prac" class="hidden grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".prac">
+              <span class="font-mono text-xs font-semibold text-emerald-400">.prac</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Starta practice</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".rethrow">
+              <span class="font-mono text-xs font-semibold text-amber-400">.rethrow</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Kasta om granat</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".bot">
+              <span class="font-mono text-xs font-semibold text-white">.bot</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Placera bot</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".cbot">
+              <span class="font-mono text-xs font-semibold text-white">.cbot</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Duckande bot</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".spawn 1">
+              <span class="font-mono text-xs font-semibold text-amber-400">.spawn 1</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Hoppa till spawn</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".noflash">
+              <span class="font-mono text-xs font-semibold text-white">.noflash</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Ingen flash-blind</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".clear">
+              <span class="font-mono text-xs font-semibold text-white">.clear</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Rensa rök & eld</span>
+            </button>
+
+            <button class="cmd-pill bento-interactive p-3.5 rounded-2xl text-left flex flex-col justify-between gap-1" data-cmd=".exitprac">
+              <span class="font-mono text-xs font-semibold text-rose-400">.exitprac</span>
+              <span class="cmd-desc text-[11px] text-zinc-400">Avsluta practice</span>
+            </button>
+          </div>
+
+          <!-- 3. Binds -->
+          <div id="cmd-grid-binds" class="hidden space-y-3">
+            <div class="bento-inner p-4 rounded-2xl space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-white">Komplett Practice Bind-rad (V, J, K, L)</span>
+                <button id="btn-download-cfg" class="text-[11px] font-medium text-amber-400 hover:underline flex items-center gap-1">
+                  <i data-lucide="download" class="w-3 h-3"></i>
+                  <span>Ladda ner gubblir_prac.cfg</span>
+                </button>
+              </div>
+              <p class="text-[11px] font-mono text-zinc-400 break-all select-all">
+                bind "v" "noclip"; bind "j" "say .rethrow"; bind "k" "say .bot"; bind "l" "say .clear"
+              </p>
+              <button class="cmd-pill w-full bg-white hover:bg-zinc-200 text-black font-semibold text-xs py-2.5 rounded-xl transition" data-cmd='bind "v" "noclip"; bind "j" "say .rethrow"; bind "k" "say .bot"; bind "l" "say .clear"'>
+                <span class="cmd-desc">Kopiera hela bind-raden till konsolen (~)</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <button class="cmd-pill bento-interactive p-3 rounded-2xl text-left" data-cmd='bind "v" "noclip"'>
+                <span class="text-[10px] font-mono text-amber-400 block">Tangent V</span>
+                <span class="text-xs font-semibold text-white mt-0.5 block">Noclip</span>
+              </button>
+              <button class="cmd-pill bento-interactive p-3 rounded-2xl text-left" data-cmd='bind "j" "say .rethrow"'>
+                <span class="text-[10px] font-mono text-amber-400 block">Tangent J</span>
+                <span class="text-xs font-semibold text-white mt-0.5 block">Rethrow</span>
+              </button>
+              <button class="cmd-pill bento-interactive p-3 rounded-2xl text-left" data-cmd='bind "k" "say .bot"'>
+                <span class="text-[10px] font-mono text-amber-400 block">Tangent K</span>
+                <span class="text-xs font-semibold text-white mt-0.5 block">Placera Bot</span>
+              </button>
+              <button class="cmd-pill bento-interactive p-3 rounded-2xl text-left" data-cmd='bind "l" "say .clear"'>
+                <span class="text-[10px] font-mono text-amber-400 block">Tangent L</span>
+                <span class="text-xs font-semibold text-white mt-0.5 block">Rensa rök</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. In-House 5v5 Lagdelare (NY!) -->
+          <div id="cmd-grid-teams" class="hidden space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+              <div class="sm:col-span-5 space-y-2">
+                <div class="flex items-center justify-between text-[11px]">
+                  <span class="text-zinc-400 font-medium">Spelare (1 per rad)</span>
+                  <button id="btn-import-players" class="text-amber-400 hover:underline font-medium">Hämta lista</button>
+                </div>
+                <textarea id="scrambler-input" rows="5" placeholder="Skriv in 10 namn eller klicka på 'Hämta lista'..." class="w-full bento-inner rounded-2xl p-3 text-xs font-mono text-white outline-none focus:border-white/20 resize-none placeholder:text-zinc-600"></textarea>
+                <button id="btn-scramble-teams" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                  <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                  <span>Slumpa 5v5 Lag</span>
+                </button>
+              </div>
+
+              <div class="sm:col-span-7 flex flex-col justify-between bento-inner rounded-2xl p-4 space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[10px] font-mono uppercase text-sky-400 font-semibold block mb-1.5">Lag CT</span>
+                    <ul id="team-ct-list" class="space-y-1 text-xs font-mono text-zinc-300">
+                      <li class="text-zinc-600">–</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-mono uppercase text-amber-400 font-semibold block mb-1.5">Lag T</span>
+                    <ul id="team-t-list" class="space-y-1 text-xs font-mono text-zinc-300">
+                      <li class="text-zinc-600">–</li>
+                    </ul>
+                  </div>
+                </div>
+                <button id="btn-copy-teams" class="w-full bg-white/[0.06] hover:bg-white/[0.12] text-zinc-200 text-xs font-medium py-2 rounded-xl transition flex items-center justify-center gap-1.5">
+                  <i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-400"></i>
+                  <span>Kopiera lag till Discord</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-zinc-500">
+          <span>MatchZy In-House Stack</span>
+          <span>Automatisk demo- & statistikloggning</span>
         </div>
       </section>
 
@@ -519,10 +597,10 @@
     <div class="bento-card rounded-3xl max-w-sm w-full p-6 space-y-5">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-sm" id="modal-player-rank">#1</div>
+          <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-sm font-mono" id="modal-player-rank">#1</div>
           <div>
             <h3 id="modal-player-name" class="text-base font-bold text-white">Spelare</h3>
-            <span class="text-[11px] text-zinc-500">In-House Statistik</span>
+            <span class="text-[11px] text-zinc-500">-=GUBBLIR=- Spelarkort</span>
           </div>
         </div>
         <button id="btn-close-modal" class="p-1.5 text-zinc-400 hover:text-white bento-inner rounded-full">
@@ -530,7 +608,7 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-2 gap-2.5">
+      <div class="grid grid-cols-2 gap-2.5 tabular-nums">
         <div class="bento-inner p-3.5 rounded-2xl">
           <span class="text-[11px] text-zinc-500 block">K/D Ratio</span>
           <span id="modal-player-kd" class="text-xl font-bold text-emerald-400 font-mono mt-0.5 block">1.00</span>
@@ -549,8 +627,8 @@
         </div>
       </div>
 
-      <div class="bento-inner rounded-2xl p-3.5 flex items-center justify-between text-xs">
-        <span class="text-zinc-400">Snitt Kills / Match</span>
+      <div class="bento-inner rounded-2xl p-3.5 flex items-center justify-between text-xs tabular-nums">
+        <span class="text-zinc-400">Snitt Kills per match</span>
         <span id="modal-player-kpm" class="font-mono font-semibold text-white">0.0</span>
       </div>
     </div>
@@ -559,7 +637,7 @@
   <!-- Minimalistisk Footer -->
   <footer class="border-t border-white/[0.06] py-8 text-xs text-zinc-500 relative z-10">
     <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <span>GubbLir · Grundat våren 2015</span>
+      <span>-=GUBBLIR=- · Grundat våren 2015 · För oss som vill, men som insett att vi inte längre kan.</span>
       <div class="flex items-center gap-5">
         <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Discord</a>
         <span class="font-mono text-zinc-400">cs.gubblir.se:25152</span>
@@ -573,14 +651,20 @@
   <script>
     const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     const ICON_CDN = 'https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images';
+    const CACHE_KEY_LB = 'gubblir_cache_lb_v1';
+    const CACHE_KEY_MATCHES = 'gubblir_cache_matches_v1';
     
     let unlockedPassword = null;
     let pollInterval = null;
     let cachedLeaderboard = [];
+    let cachedMatches = [];
+    let liveServerPlayers = [];
+    let currentServerMap = 'de_dust2';
     let currentSortKey = 'kd_ratio';
     let sortAscending = false;
     let vetoMode = false;
     let bannedMaps = new Set();
+    let lastScrambledText = '';
 
     const MAPS = [
       { id: 'de_mirage', name: 'Mirage' },
@@ -651,44 +735,56 @@
     function renderSlotMatrix(playerCount) {
       const matrix = document.getElementById('slot-matrix');
       const subtext = document.getElementById('lobby-status-subtext');
+      const modePill = document.getElementById('srv-mode-pill');
       const capped = Math.min(Math.max(playerCount || 0, 0), 10);
       matrix.innerHTML = '';
 
       for (let i = 0; i < 10; i++) {
         const bar = document.createElement('div');
-        bar.className = i < capped
-          ? 'h-1.5 rounded-full bg-emerald-400'
-          : 'h-1.5 rounded-full bg-white/[0.08]';
+        if (i < capped) {
+          bar.className = i < 5
+            ? 'h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.5)]'
+            : 'h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.5)]';
+        } else {
+          bar.className = 'h-1.5 rounded-full bg-white/[0.08]';
+        }
         matrix.appendChild(bar);
       }
 
       if (capped === 0) {
         subtext.textContent = 'Ledig för .prac eller 5v5';
+        modePill.textContent = 'Ledig';
+        modePill.className = 'text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
       } else if (capped < 10) {
-        subtext.textContent = `${10 - capped} platser kvar`;
+        subtext.textContent = `Saknas ${10 - capped} för full 5v5`;
+        modePill.textContent = 'Warmup / Prac';
+        modePill.className = 'text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20';
       } else {
-        subtext.textContent = 'Full 5v5 pågår';
+        subtext.textContent = 'Full 5v5-match pågår';
+        modePill.textContent = 'Live 5v5';
+        modePill.className = 'text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 border border-rose-500/30';
       }
     }
 
     function renderRoster(players) {
       const rosterList = document.getElementById('roster-list');
       const countText = document.getElementById('roster-count-text');
+      liveServerPlayers = Array.isArray(players) ? players : [];
       
-      if (!Array.isArray(players) || players.length === 0) {
+      if (liveServerPlayers.length === 0) {
         countText.textContent = '0 inne';
         rosterList.innerHTML = `
-          <div class="col-span-full py-4 text-center bento-inner rounded-2xl text-zinc-500 text-xs">
-            Inga spelare anslutna just nu
+          <div class="col-span-full py-3.5 text-center bento-inner rounded-2xl text-zinc-500 text-xs">
+            Servern är tom — hoppa in och kör .prac eller dra ihop en femma
           </div>
         `;
         return;
       }
 
-      countText.textContent = `${players.length} inne`;
+      countText.textContent = `${liveServerPlayers.length} inne`;
       rosterList.innerHTML = '';
 
-      players.forEach(p => {
+      liveServerPlayers.forEach(p => {
         const item = document.createElement('div');
         item.className = 'flex items-center justify-between bento-inner px-3 py-2 rounded-xl';
         
@@ -706,7 +802,7 @@
         nameDiv.appendChild(nameSpan);
 
         const timeSpan = document.createElement('span');
-        timeSpan.className = 'text-[10px] font-mono text-zinc-500 shrink-0 ml-2';
+        timeSpan.className = 'text-[10px] font-mono text-zinc-500 shrink-0 ml-2 tabular-nums';
         timeSpan.textContent = p.time ? `${Math.floor(p.time / 60)}m` : 'Nu';
 
         item.appendChild(nameDiv);
@@ -723,13 +819,18 @@
           const data = await res.json();
           if (data.map) {
             const rawMap = data.map.toLowerCase();
+            currentServerMap = rawMap;
             const mapObj = MAPS.find(m => m.id === rawMap);
             document.getElementById('srv-map').textContent = rawMap;
             document.getElementById('srv-map-clean').textContent = mapObj ? mapObj.name : rawMap.replace('de_', '');
             
             const pinEl = document.getElementById('srv-map-pin');
+            const radarEl = document.getElementById('srv-radar-bg');
             pinEl.style.display = 'block';
+            radarEl.style.display = 'block';
             pinEl.src = `${ICON_CDN}/${rawMap}.png`;
+            radarEl.src = `${ICON_CDN}/radars/${rawMap}_radar_psd.png`;
+            renderMapPool();
           }
           const pCount = data.playerCount !== undefined ? data.playerCount : 0;
           const pMax = data.maxPlayers !== undefined ? data.maxPlayers : 10;
@@ -751,21 +852,26 @@
       MAPS.forEach(m => {
         const isBanned = bannedMaps.has(m.id);
         const isWinner = winnerId === m.id;
+        const isLiveOnServer = (!vetoMode && currentServerMap === m.id);
 
         const card = document.createElement('button');
-        card.className = `bento-inner-hover p-3.5 rounded-2xl text-left flex items-center justify-between ${isBanned ? 'map-banned' : ''} ${isWinner ? 'map-winner' : ''}`;
+        card.className = `bento-interactive p-3.5 rounded-2xl text-left flex items-center justify-between relative overflow-hidden group ${isBanned ? 'map-banned' : ''} ${isWinner ? 'map-winner' : ''}`;
 
         card.innerHTML = `
-          <div class="flex items-center gap-3">
+          <img src="${ICON_CDN}/radars/${m.id}_radar_psd.png" alt="" class="radar-mask absolute -right-4 -bottom-4 w-20 h-20 object-contain opacity-[0.1] group-hover:opacity-20 transition pointer-events-none" onerror="this.style.display='none'">
+          <div class="flex items-center gap-3 relative z-10">
             <img src="${ICON_CDN}/${m.id}.png" alt="${m.name}" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
             <div>
-              <span class="text-xs font-semibold text-white block">${m.name}</span>
-              <span class="text-[11px] font-mono ${isBanned ? 'text-rose-400 line-through' : isWinner ? 'text-emerald-400' : 'text-zinc-500'}">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-semibold text-white">${m.name}</span>
+                ${isLiveOnServer ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Aktiv på servern just nu"></span>' : ''}
+              </div>
+              <span class="text-[11px] font-mono ${isBanned ? 'text-rose-400 line-through' : isWinner ? 'text-emerald-400 font-semibold' : 'text-zinc-500'}">
                 ${isBanned ? 'Bannad' : isWinner ? 'Vald karta' : `.map ${m.id}`}
               </span>
             </div>
           </div>
-          <i data-lucide="${vetoMode ? 'ban' : 'copy'}" class="w-3.5 h-3.5 ${vetoMode ? 'text-rose-400/70' : 'text-zinc-600'}"></i>
+          <i data-lucide="${vetoMode ? 'ban' : 'copy'}" class="w-3.5 h-3.5 relative z-10 ${vetoMode ? 'text-rose-400/70' : 'text-zinc-600 group-hover:text-zinc-300'}"></i>
         `;
 
         card.addEventListener('click', () => {
@@ -804,11 +910,11 @@
         vetoMode = !vetoMode;
         bannedMaps.clear();
         if (vetoMode) {
-          txtToggle.textContent = 'Nollställ Veto';
+          txtToggle.textContent = 'Nollställ';
           subtitle.textContent = 'Klicka på kartorna för att banna tills en återstår.';
         } else {
           txtToggle.textContent = 'Veto';
-          subtitle.innerHTML = 'Klicka för att kopiera <code class="text-zinc-200 font-mono">.map</code> eller kör kart-veto.';
+          subtitle.innerHTML = 'Klicka för att kopiera <code class="text-zinc-200 font-mono">.map</code> eller banna i Veto.';
         }
         renderMapPool();
       });
@@ -820,7 +926,7 @@
         MAPS.forEach((m, idx) => {
           if (idx !== winnerIndex) bannedMaps.add(m.id);
         });
-        txtToggle.textContent = 'Nollställ Veto';
+        txtToggle.textContent = 'Nollställ';
         renderMapPool();
         const chosen = MAPS[winnerIndex];
         copyText(`.map ${chosen.id}`, `Slumpade ${chosen.name} (.map ${chosen.id})`);
@@ -830,12 +936,12 @@
     function setupCfgDownload() {
       document.getElementById('btn-download-cfg').addEventListener('click', () => {
         const cfgContent = [
-          '// GubbLir Practice Keybinds',
+          '// -=GUBBLIR=- Practice Keybinds',
           'bind "v" "noclip"',
           'bind "j" "say .rethrow"',
           'bind "k" "say .bot"',
           'bind "l" "say .clear"',
-          'echo "[GubbLir] Practice binds laddade!"'
+          'echo "[-=GUBBLIR=-] Practice binds laddade!"'
         ].join('\n');
 
         const blob = new Blob([cfgContent], { type: 'text/plain;charset=utf-8' });
@@ -848,6 +954,61 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         showToast('Laddade ner gubblir_prac.cfg');
+      });
+    }
+
+    function setupTeamScrambler() {
+      const inputEl = document.getElementById('scrambler-input');
+      const btnImport = document.getElementById('btn-import-players');
+      const btnScramble = document.getElementById('btn-scramble-teams');
+      const btnCopy = document.getElementById('btn-copy-teams');
+      const ctList = document.getElementById('team-ct-list');
+      const tList = document.getElementById('team-t-list');
+
+      btnImport.addEventListener('click', () => {
+        let names = liveServerPlayers.map(p => p.name).filter(Boolean);
+        if (names.length < 10 && cachedLeaderboard.length > 0) {
+          cachedLeaderboard.forEach(p => {
+            if (names.length < 10 && p.name && !names.includes(p.name)) {
+              names.push(p.name);
+            }
+          });
+        }
+        if (names.length === 0) {
+          names = ['Spelare 1', 'Spelare 2', 'Spelare 3', 'Spelare 4', 'Spelare 5', 'Spelare 6', 'Spelare 7', 'Spelare 8', 'Spelare 9', 'Spelare 10'];
+        }
+        inputEl.value = names.slice(0, 10).join('\n');
+        showToast(`Hämtade ${Math.min(names.length, 10)} spelare`);
+      });
+
+      btnScramble.addEventListener('click', () => {
+        const raw = inputEl.value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
+        if (raw.length < 2) {
+          showToast('Skriv in minst 2 spelare först');
+          return;
+        }
+        const shuffled = [...raw];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        const half = Math.ceil(shuffled.length / 2);
+        const ct = shuffled.slice(0, half);
+        const t = shuffled.slice(half);
+
+        ctList.innerHTML = ct.map(n => `<li class="truncate">• ${escapeHtml(n)}</li>`).join('');
+        tList.innerHTML = t.map(n => `<li class="truncate">• ${escapeHtml(n)}</li>`).join('');
+
+        lastScrambledText = `LAG CT: ${ct.join(', ')}  |  LAG T: ${t.join(', ')}`;
+        showToast('Lagen är slumpade!');
+      });
+
+      btnCopy.addEventListener('click', () => {
+        if (!lastScrambledText) {
+          showToast('Slumpa lagen först');
+          return;
+        }
+        copyText(lastScrambledText, 'Laguppställning kopierad');
       });
     }
 
@@ -868,6 +1029,36 @@
       modal.classList.add('flex');
     }
 
+    function updateKpiBar() {
+      const elPlayers = document.getElementById('kpi-players');
+      const elMatches = document.getElementById('kpi-matches');
+      const elAvgKd = document.getElementById('kpi-avg-kd');
+      const elLastMap = document.getElementById('kpi-last-map');
+
+      elPlayers.textContent = cachedLeaderboard.length > 0 ? cachedLeaderboard.length : '0';
+      elMatches.textContent = cachedMatches.length > 0 ? cachedMatches.length : '0';
+
+      if (cachedLeaderboard.length > 0) {
+        const sumKd = cachedLeaderboard.reduce((acc, p) => acc + parseFloat(p.kd_ratio || 0), 0);
+        elAvgKd.textContent = (sumKd / cachedLeaderboard.length).toFixed(2);
+      } else {
+        elAvgKd.textContent = '–';
+      }
+
+      if (cachedMatches.length > 0 && cachedMatches[0].map_name) {
+        elLastMap.textContent = cachedMatches[0].map_name;
+      } else {
+        elLastMap.textContent = currentServerMap;
+      }
+    }
+
+    function getRankPill(rank) {
+      if (rank === 1) return '<span class="inline-flex items-center justify-center w-6 h-5 rounded-md bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono font-bold text-[11px]">1</span>';
+      if (rank === 2) return '<span class="inline-flex items-center justify-center w-6 h-5 rounded-md bg-zinc-400/15 text-zinc-300 border border-zinc-400/25 font-mono font-bold text-[11px]">2</span>';
+      if (rank === 3) return '<span class="inline-flex items-center justify-center w-6 h-5 rounded-md bg-amber-700/20 text-amber-500 border border-amber-700/30 font-mono font-bold text-[11px]">3</span>';
+      return `<span class="font-mono text-zinc-500 pl-1.5">${rank}</span>`;
+    }
+
     function renderLeaderboardTable(players) {
       const tbody = document.getElementById('leaderboard-tbody');
 
@@ -875,7 +1066,7 @@
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="py-12 text-center text-zinc-500">
-              Ingen statistik registrerad ännu. Spela klart en 5v5-match så rankas listan här.
+              Ingen statistik registrerad ännu. Spela klart en 5v5-match så rankas listan automatiskt här.
             </td>
           </tr>
         `;
@@ -887,14 +1078,22 @@
         const rank = idx + 1;
         const kd = parseFloat(p.kd_ratio || 0);
         const kdColor = kd >= 1.0 ? 'text-emerald-400 font-semibold' : 'text-zinc-400';
+        const kdPercent = Math.min(Math.round((kd / 2.0) * 100), 100);
 
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-white/[0.03] transition cursor-pointer group';
         tr.innerHTML = `
-          <td class="py-3.5 pl-3 font-mono text-zinc-500">${rank}</td>
+          <td class="py-3.5 pl-3">${getRankPill(rank)}</td>
           <td class="py-3.5 font-medium text-white group-hover:text-amber-400 transition">${escapeHtml(p.name)}</td>
           <td class="py-3.5 text-center font-mono text-zinc-400">${p.matches_played}</td>
-          <td class="py-3.5 text-center font-mono ${kdColor}">${p.kd_ratio || '0.00'}</td>
+          <td class="py-3.5 pl-4">
+            <div class="flex items-center gap-2.5">
+              <span class="font-mono ${kdColor} w-9">${p.kd_ratio || '0.00'}</span>
+              <div class="hidden md:block w-16 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                <div class="h-full rounded-full ${kd >= 1.0 ? 'bg-emerald-400' : 'bg-zinc-600'}" style="width: ${kdPercent}%"></div>
+              </div>
+            </div>
+          </td>
           <td class="py-3.5 text-center font-mono text-zinc-500 hidden sm:table-cell">${p.total_kills} / ${p.total_deaths}</td>
           <td class="py-3.5 text-center font-mono text-zinc-500 hidden sm:table-cell">${p.hs_percentage ? p.hs_percentage + '%' : '-'}</td>
           <td class="py-3.5 text-right pr-3 font-mono font-semibold text-amber-400">${p.total_mvps || 0}</td>
@@ -902,6 +1101,47 @@
         tr.addEventListener('click', () => openPlayerModal(p, rank));
         tbody.appendChild(tr);
       });
+    }
+
+    function renderMatchesGrid(matches) {
+      const grid = document.getElementById('matches-grid');
+      if (!matches || matches.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-zinc-500 text-xs">
+            Inga matcher sparade ännu.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = matches.map(m => {
+        const playedDate = new Date(m.played_at).toLocaleDateString('sv-SE', {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        return `
+          <div class="bento-inner p-4 rounded-2xl space-y-3 tabular-nums">
+            <div class="flex items-center justify-between text-xs text-zinc-500">
+              <span class="font-mono text-amber-400 font-medium">${escapeHtml(m.map_name)}</span>
+              <span>${playedDate}</span>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <div>
+                <span class="text-xs font-medium text-zinc-300 block">${escapeHtml(m.team1_name)}</span>
+                <span class="text-2xl font-bold font-mono ${m.team1_score > m.team2_score ? 'text-emerald-400' : 'text-zinc-500'}">${m.team1_score}</span>
+              </div>
+              <span class="text-xs text-zinc-600 font-mono">VS</span>
+              <div class="text-right">
+                <span class="text-xs font-medium text-zinc-300 block">${escapeHtml(m.team2_name)}</span>
+                <span class="text-2xl font-bold font-mono ${m.team2_score > m.team1_score ? 'text-emerald-400' : 'text-zinc-500'}">${m.team2_score}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function sortAndRenderLeaderboard() {
@@ -917,66 +1157,50 @@
       renderLeaderboardTable(filtered);
     }
 
+    function hydrateStatsFromCache() {
+      try {
+        const rawLb = localStorage.getItem(CACHE_KEY_LB);
+        const rawMatches = localStorage.getItem(CACHE_KEY_MATCHES);
+        if (rawLb) {
+          cachedLeaderboard = JSON.parse(rawLb);
+          sortAndRenderLeaderboard();
+        }
+        if (rawMatches) {
+          cachedMatches = JSON.parse(rawMatches);
+          renderMatchesGrid(cachedMatches);
+        }
+        updateKpiBar();
+      } catch (e) {}
+    }
+
     async function loadStats(silent = false) {
       const syncBadge = document.getElementById('db-sync-badge');
-      if (!silent) {
-        syncBadge.textContent = 'Uppdaterar...';
+      if (!silent && cachedLeaderboard.length === 0) {
+        syncBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span><span>Väcker statistikmotorn...</span>';
       }
 
       try {
         const res = await fetch(`${STATS_API_BASE}/api/stats/leaderboard`);
         if (res.ok) {
           cachedLeaderboard = await res.json();
+          localStorage.setItem(CACHE_KEY_LB, JSON.stringify(cachedLeaderboard));
           sortAndRenderLeaderboard();
-          syncBadge.textContent = 'Live';
-          syncBadge.className = 'text-[11px] text-emerald-400 font-medium';
+          updateKpiBar();
+          syncBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-emerald-400">Live</span>';
         }
       } catch (err) {
-        syncBadge.textContent = 'Vilar';
+        if (cachedLeaderboard.length > 0) {
+          syncBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span><span>Cachad</span>';
+        }
       }
 
       try {
         const res = await fetch(`${STATS_API_BASE}/api/stats/matches`);
-        const grid = document.getElementById('matches-grid');
-
         if (res.ok) {
-          const matches = await res.json();
-          if (matches.length === 0) {
-            grid.innerHTML = `
-              <div class="col-span-full py-12 text-center text-zinc-500 text-xs">
-                Inga matcher sparade ännu.
-              </div>
-            `;
-          } else {
-            grid.innerHTML = matches.map(m => {
-              const playedDate = new Date(m.played_at).toLocaleDateString('sv-SE', {
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              });
-
-              return `
-                <div class="bento-inner p-4 rounded-2xl space-y-3">
-                  <div class="flex items-center justify-between text-xs text-zinc-500">
-                    <span class="font-mono text-amber-400 font-medium">${escapeHtml(m.map_name)}</span>
-                    <span>${playedDate}</span>
-                  </div>
-                  <div class="flex items-center justify-between py-1">
-                    <div>
-                      <span class="text-xs font-medium text-zinc-300 block">${escapeHtml(m.team1_name)}</span>
-                      <span class="text-2xl font-bold font-mono ${m.team1_score > m.team2_score ? 'text-white' : 'text-zinc-500'}">${m.team1_score}</span>
-                    </div>
-                    <span class="text-xs text-zinc-600 font-mono">–</span>
-                    <div class="text-right">
-                      <span class="text-xs font-medium text-zinc-300 block">${escapeHtml(m.team2_name)}</span>
-                      <span class="text-2xl font-bold font-mono ${m.team2_score > m.team1_score ? 'text-white' : 'text-zinc-500'}">${m.team2_score}</span>
-                    </div>
-                  </div>
-                </div>
-              `;
-            }).join('');
-          }
+          cachedMatches = await res.json();
+          localStorage.setItem(CACHE_KEY_MATCHES, JSON.stringify(cachedMatches));
+          renderMatchesGrid(cachedMatches);
+          updateKpiBar();
         }
       } catch (err) {}
     }
@@ -1022,17 +1246,19 @@
       const cmdTabMatch = document.getElementById('cmd-tab-match');
       const cmdTabPrac = document.getElementById('cmd-tab-prac');
       const cmdTabBinds = document.getElementById('cmd-tab-binds');
+      const cmdTabTeams = document.getElementById('cmd-tab-teams');
       const cmdGridMatch = document.getElementById('cmd-grid-match');
       const cmdGridPrac = document.getElementById('cmd-grid-prac');
       const cmdGridBinds = document.getElementById('cmd-grid-binds');
+      const cmdGridTeams = document.getElementById('cmd-grid-teams');
 
       function activateCmdTab(activeBtn, activeView, isGrid) {
-        [cmdTabMatch, cmdTabPrac, cmdTabBinds].forEach(b => {
+        [cmdTabMatch, cmdTabPrac, cmdTabBinds, cmdTabTeams].forEach(b => {
           b.className = 'px-3.5 py-1 rounded-full text-zinc-400 hover:text-white transition';
         });
         activeBtn.className = 'px-3.5 py-1 rounded-full bg-white text-black font-semibold transition';
 
-        [cmdGridMatch, cmdGridPrac, cmdGridBinds].forEach(v => {
+        [cmdGridMatch, cmdGridPrac, cmdGridBinds, cmdGridTeams].forEach(v => {
           v.classList.add('hidden');
           v.classList.remove('grid');
         });
@@ -1043,6 +1269,7 @@
       cmdTabMatch.addEventListener('click', () => activateCmdTab(cmdTabMatch, cmdGridMatch, true));
       cmdTabPrac.addEventListener('click', () => activateCmdTab(cmdTabPrac, cmdGridPrac, true));
       cmdTabBinds.addEventListener('click', () => activateCmdTab(cmdTabBinds, cmdGridBinds, false));
+      cmdTabTeams.addEventListener('click', () => activateCmdTab(cmdTabTeams, cmdGridTeams, false));
     }
 
     function applyMemberState(authData) {
@@ -1070,8 +1297,8 @@
         connectText.textContent = fullConnectCmd;
         pwPlaceholder.classList.add('hidden');
 
-        unlockBadge.textContent = 'Upplåst';
-        unlockBadge.className = 'text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full';
+        unlockBadge.textContent = '✓ Upplåst';
+        unlockBadge.className = 'text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full shrink-0';
 
         passwordField.textContent = authData.password;
         passwordField.className = 'font-mono text-amber-400 cursor-pointer select-all';
@@ -1131,6 +1358,8 @@
       renderMapPool();
       setupMapVetoControls();
       setupCfgDownload();
+      setupTeamScrambler();
+      hydrateStatsFromCache();
       pollStatus();
       checkAuth();
       setupTabs();
