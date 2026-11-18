@@ -215,16 +215,16 @@
         <a href="#statistik" class="px-4 py-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition">Topplista</a>
       </nav>
       
-      <!-- Höger: Discord Server-länk + Riktig Inloggningsknapp / Profil -->
+      <!-- Höger: Discord-inbjudan + Riktig OAuth2 Inloggning / Profil -->
       <div class="flex items-center gap-2.5">
-        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white px-3 py-2 rounded-xl hover:bg-white/[0.05] transition" title="Öppna vår Discord-server">
+        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white px-3 py-2 rounded-xl hover:bg-white/[0.05] transition" title="Gå med i vår Discord-server">
           <i data-lucide="headphones" class="w-3.5 h-3.5 accent-text"></i>
           <span>Discord-server</span>
         </a>
 
         <!-- Riktig OAuth2-inloggningsknapp i Headern -->
         <a id="btn-header-login" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="text-xs sm:text-sm font-bold text-black bg-white hover:bg-zinc-200 px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
-          <i data-lucide="lock-open" class="w-3.5 h-3.5"></i>
+          <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
           <span>Logga in</span>
         </a>
 
@@ -233,7 +233,7 @@
           <img id="user-avatar" class="w-6 h-6 rounded-full object-cover border border-white/30" src="" alt="">
           <div class="flex flex-col">
             <span id="user-name" class="text-xs font-bold text-white leading-none"></span>
-            <span id="user-role-badge" class="text-[10px] font-mono accent-text mt-0.5">Verifierad</span>
+            <span id="user-role-badge" class="text-[10px] font-mono text-emerald-400 mt-0.5">GubbLir medlem</span>
           </div>
           <button id="btn-logout" class="text-zinc-400 hover:text-rose-400 ml-1 p-1 transition" title="Logga ut">
             <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -267,47 +267,62 @@
           </p>
         </div>
 
-        <!-- Taktil Konsolterminal & Discord-Upplåsning -->
+        <!-- Taktil Konsolterminal & Medlems-Upplåsning -->
         <div class="glass-panel rounded-3xl p-6 sm:p-7 space-y-5 relative overflow-hidden">
+          
+          <!-- Titelrad + Låsstatus -->
           <div class="flex flex-wrap items-center justify-between gap-2 relative z-10">
             <div class="flex items-center gap-2.5">
               <span class="keycap px-2.5 py-1 rounded-lg text-xs font-mono font-bold accent-text">~</span>
               <span class="text-sm font-bold text-white">Anslut via CS2-konsolen</span>
             </div>
-            <span id="unlock-status-badge" class="inline-flex items-center gap-1.5 text-xs font-medium bg-white/[0.05] text-zinc-400 border border-white/[0.08] px-3 py-1 rounded-full">
-              <i data-lucide="lock" class="w-3.5 h-3.5 accent-text"></i>
-              <span>Lösenord låst</span>
+            <span id="unlock-status-badge" class="inline-flex items-center gap-1.5 text-xs font-medium bg-white/[0.05] text-zinc-300 border border-white/[0.1] px-3 py-1 rounded-full">
+              <span>🔒 Kräver GubbLir medlem</span>
             </span>
           </div>
 
-          <!-- Kommandorad med 1-klicks kopiering -->
+          <!-- Medlemsruta (Visas ENDAST när man är inloggad med GubbLir medlem-rollen) -->
+          <div id="member-unlocked-bar" class="hidden bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-3.5 items-center justify-between gap-3 relative z-10">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
+              <div class="text-xs sm:text-sm">
+                <span class="text-zinc-300">Serverlösenord: </span>
+                <button id="btn-inline-pw" class="font-mono font-bold text-white bg-black/50 border border-white/15 px-2.5 py-0.5 rounded-lg hover:border-white transition" title="Klicka för att kopiera lösenordet">
+                  ••••
+                </button>
+              </div>
+            </div>
+            <a id="btn-steam-connect" href="#" class="text-xs font-bold text-emerald-300 hover:text-white bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 px-3 py-1.5 rounded-xl transition shrink-0">
+              Starta via Steam &rarr;
+            </a>
+          </div>
+
+          <!-- Kommandorad med 1-klicks kopiering (Ingen avklippt text) -->
           <div class="bg-[#09090b] border border-white/[0.1] hover:border-white/[0.2] transition rounded-2xl p-2 pl-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
-            <div class="truncate font-mono text-sm sm:text-base select-all py-1.5">
+            <div class="font-mono text-xs sm:text-sm select-all py-1.5 break-all pr-2">
               <span id="cmd-connect-text" class="text-white font-semibold">connect cs.gubblir.se:25152</span><span id="cmd-pw-placeholder" class="text-zinc-600 select-none">; password ••••••••</span>
             </div>
-            <button id="btn-copy-connect" class="bg-white/[0.08] hover:bg-white hover:text-black text-white text-sm font-semibold px-5 py-3 rounded-xl transition active:scale-95 shrink-0 flex items-center justify-center gap-2">
+            <button id="btn-copy-connect" class="bg-white/[0.08] hover:bg-white hover:text-black text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition active:scale-95 shrink-0 flex items-center justify-center gap-2">
               <i data-lucide="copy" class="w-4 h-4"></i>
               <span id="txt-copy-connect">Kopiera</span>
             </button>
           </div>
 
-          <!-- Primär Knapp + Sekundär Länk -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1 relative z-10">
+          <!-- Knappar & Statusrad (Staplad struktur så att text aldrig kläms ihop) -->
+          <div class="space-y-3 pt-1 relative z-10">
             <div class="flex flex-wrap items-center gap-3">
-              <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-zinc-200 text-black font-display font-extrabold text-base px-7 py-4 rounded-2xl transition shadow-[0_10px_30px_rgba(255,255,255,0.12)] active:scale-95 cursor-pointer shrink-0">
-                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-zinc-200 text-black font-display font-extrabold text-sm sm:text-base px-6 py-3.5 rounded-2xl transition shadow-[0_10px_30px_rgba(255,255,255,0.12)] active:scale-95 cursor-pointer">
                 <span id="txt-primary-action">Lås upp lösenord med Discord</span>
               </a>
 
-              <a id="btn-retry-auth" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="hidden items-center justify-center gap-2 deck-button text-white font-semibold text-xs px-4 py-3 rounded-xl">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 accent-text"></i>
+              <a id="btn-retry-auth" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="hidden items-center justify-center gap-2 deck-button text-white font-semibold text-xs sm:text-sm px-4 py-3.5 rounded-2xl">
                 <span>Kontrollera roll igen</span>
               </a>
             </div>
 
-            <span id="cta-helper-text" class="text-xs sm:text-sm text-zinc-400 leading-snug">
-              Verifierar din roll i GubbLir-Discorden och fyller i lösenordet automatiskt.
-            </span>
+            <p id="cta-helper-text" class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Logga in med Discord för att verifiera att du har rollen <strong class="text-zinc-200">GubbLir medlem</strong> och låsa upp lösenordet.
+            </p>
           </div>
         </div>
       </div>
@@ -759,9 +774,8 @@
     const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     const ICON_CDN = 'https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images';
     const ART_CDN = 'https://raw.githubusercontent.com/ghostcap-gaming/cs2-map-images/main/cs2';
-    const OAUTH_URL = 'https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read';
-    const CACHE_KEY_LB = 'gubblir_lb_pro_v5';
-    const CACHE_KEY_MATCHES = 'gubblir_matches_pro_v5';
+    const CACHE_KEY_LB = 'gubblir_lb_pro_v6';
+    const CACHE_KEY_MATCHES = 'gubblir_matches_pro_v6';
     
     let unlockedPassword = null;
     let cachedLeaderboard = [];
@@ -808,6 +822,7 @@
       return div.innerHTML;
     }
 
+    // Hanterar både UTF-8 och Latin-1 Base64 så att å, ä, ö aldrig blir korrupta tecken
     function decodeBase64Json(rawEncoded) {
       let base64 = decodeURIComponent(rawEncoded).trim().replace(/-/g, '+').replace(/_/g, '/');
       while (base64.length % 4 !== 0) {
@@ -815,8 +830,12 @@
       }
       const binaryStr = atob(base64);
       const bytes = Uint8Array.from(binaryStr, c => c.charCodeAt(0));
-      const utf8Str = new TextDecoder('utf-8').decode(bytes);
-      return JSON.parse(utf8Str);
+      try {
+        const utf8Str = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+        return JSON.parse(utf8Str);
+      } catch (e) {
+        return JSON.parse(binaryStr);
+      }
     }
 
     function showToast(text) {
@@ -1384,6 +1403,20 @@
       cmdTabBinds.addEventListener('click', () => activateCmdTab(cmdTabBinds, cmdGridBinds, false));
     }
 
+    function hasGubblirMemberRole(authData) {
+      if (!authData) return false;
+      if (authData.isGubblirare === true || authData.isMember === true || authData.hasRole === true) {
+        return true;
+      }
+      if (Array.isArray(authData.roles)) {
+        return authData.roles.some(r => {
+          const s = String(r).toLowerCase();
+          return s.includes('gubblir');
+        });
+      }
+      return Boolean(authData.password);
+    }
+
     function applyMemberState(authData, fromFreshLogin = false) {
       if (!authData || !authData.user) return;
 
@@ -1396,7 +1429,11 @@
       const connectText = document.getElementById('cmd-connect-text');
       const pwPlaceholder = document.getElementById('cmd-pw-placeholder');
       const unlockBadge = document.getElementById('unlock-status-badge');
+      const memberBar = document.getElementById('member-unlocked-bar');
+      const inlinePwBtn = document.getElementById('btn-inline-pw');
+      const steamConnectBtn = document.getElementById('btn-steam-connect');
       const primaryBtn = document.getElementById('btn-primary-action');
+      const primaryTxt = document.getElementById('txt-primary-action');
       const retryAuthBtn = document.getElementById('btn-retry-auth');
       const helperText = document.getElementById('cta-helper-text');
 
@@ -1406,20 +1443,28 @@
       userName.textContent = authData.user.username;
       userAvatar.src = authData.user.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png';
 
-      if (authData.isGubblirare && authData.password) {
+      const isVerifiedMember = hasGubblirMemberRole(authData) && Boolean(authData.password);
+
+      if (isVerifiedMember) {
         unlockedPassword = authData.password;
-        userRoleBadge.textContent = 'Verifierad';
+        userRoleBadge.textContent = 'GubbLir medlem';
         userRoleBadge.className = 'text-[10px] font-mono text-emerald-400 mt-0.5';
 
         const fullConnectCmd = `connect cs.gubblir.se:25152; password ${authData.password}`;
         connectText.textContent = fullConnectCmd;
         pwPlaceholder.classList.add('hidden');
 
-        unlockBadge.innerHTML = '<span>✓ Upplåst</span>';
-        unlockBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold accent-badge px-3 py-1 rounded-full';
+        unlockBadge.textContent = '✓ Upplåst (GubbLir medlem)';
+        unlockBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full';
+
+        memberBar.classList.remove('hidden');
+        memberBar.classList.add('flex');
+        inlinePwBtn.textContent = authData.password;
+        inlinePwBtn.onclick = () => copyText(authData.password, 'Lösenordet kopierat!');
+        steamConnectBtn.href = `steam://connect/212.102.62.209:25152/${encodeURIComponent(authData.password)}`;
 
         passwordField.textContent = `Lösenord: ${authData.password}`;
-        passwordField.className = 'font-mono text-white font-bold cursor-pointer select-all';
+        passwordField.className = 'font-mono text-emerald-400 font-bold cursor-pointer select-all';
         passwordField.onclick = () => copyText(authData.password, 'Lösenordet kopierat!');
 
         retryAuthBtn.classList.add('hidden');
@@ -1430,30 +1475,35 @@
           e.preventDefault();
           copyText(fullConnectCmd, 'Kommando med lösenord kopierat!');
         };
-        primaryBtn.innerHTML = '<i data-lucide="copy" class="w-5 h-5"></i><span id="txt-primary-action">Kopiera kommando med lösenord</span>';
-        helperText.textContent = `Inloggad som ${authData.user.username}. Klistra in direkt i CS2-konsolen (~).`;
+        primaryTxt.textContent = 'Kopiera kommando med lösenord';
+        helperText.textContent = `Inloggad som ${authData.user.username} (GubbLir medlem). Klistra in kommandot direkt i CS2-konsolen (~).`;
 
         if (fromFreshLogin) {
           showToast(`Välkommen ${authData.user.username}! Lösenordet är upplåst.`);
         }
       } else {
-        userRoleBadge.textContent = 'Saknar roll';
+        userRoleBadge.textContent = 'Saknar medlemsroll';
         userRoleBadge.className = 'text-[10px] font-mono text-rose-400 mt-0.5';
+
+        memberBar.classList.add('hidden');
+        memberBar.classList.remove('flex');
+
+        unlockBadge.textContent = '⚠️ Saknar rollen GubbLir medlem';
+        unlockBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full';
 
         primaryBtn.href = 'https://join.gubblir.se';
         primaryBtn.target = '_blank';
         primaryBtn.onclick = null;
-        primaryBtn.innerHTML = '<i data-lucide="external-link" class="w-5 h-5"></i><span id="txt-primary-action">Gå med i GubbLir Discord</span>';
+        primaryTxt.textContent = 'Gå med i GubbLir Discord';
 
         retryAuthBtn.classList.remove('hidden');
         retryAuthBtn.classList.add('inline-flex');
-        helperText.textContent = 'Du är inloggad men saknar medlemsrollen i vår Discord.';
+        helperText.textContent = `Inloggad som ${authData.user.username}, men vi hittade inte rollen "GubbLir medlem" på ditt Discord-konto.`;
 
         if (fromFreshLogin) {
-          showToast(`Inloggad som ${authData.user.username} (Saknar medlemsroll)`);
+          showToast(`Inloggad som ${authData.user.username} (Saknar rollen GubbLir medlem)`);
         }
       }
-      lucide.createIcons();
     }
 
     function checkAuth() {
