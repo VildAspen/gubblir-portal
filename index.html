@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gubblir.se">
   <meta property="og:title" content="GubbLir CS2 — In-House Hub">
-  <meta property="og:description" content="Svensk CS2-community sedan våren 2015. Live-server, statistik, matchhistorik och lagbalanserare.">
+  <meta property="og:description" content="Svensk CS2-community sedan våren 2015. Live-server, statistik, matchhistorik och självlärande lagbalanserare.">
   <meta property="og:theme-color" content="#0b0e14">
 
   <!-- Favicon -->
@@ -30,15 +30,6 @@
           fontFamily: {
             sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            cs: {
-              bg: '#0b0e14',
-              card: '#11161f',
-              elevated: '#161c28',
-              border: '#1f2737',
-              accent: '#f59e0b'
-            }
           }
         }
       }
@@ -84,7 +75,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black overflow-x-hidden">
 
-  <!-- TOPP-NAVIGATION (Ren Plattform-Header) -->
+  <!-- TOPP-NAVIGATION -->
   <header class="sticky top-0 z-40 bg-[#0b0e14]/90 backdrop-blur-xl border-b border-white/[0.07]">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       
@@ -159,9 +150,8 @@
   <!-- HUVUDINNEHÅLL -->
   <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 py-8 w-full space-y-8">
 
-    <!-- LIVE SERVER & QUICK-CONNECT BANNER (Alltid högst upp, allt på ett ställe) -->
+    <!-- LIVE SERVER & QUICK-CONNECT BANNER -->
     <section class="hub-card rounded-2xl overflow-hidden relative">
-      <!-- Dynamisk Kartbakgrund med mörk toning -->
       <div class="absolute inset-0 z-0 pointer-events-none">
         <img id="srv-hero-bg" src="https://raw.githubusercontent.com/ghostcap-gaming/cs2-map-images/main/cs2/de_dust2.png" alt="" class="w-full h-full object-cover opacity-20" onerror="this.style.display='none'">
         <div class="absolute inset-0 bg-gradient-to-r from-[#11161f] via-[#11161f]/90 to-[#11161f]/75"></div>
@@ -189,7 +179,6 @@
               </div>
             </div>
 
-            <!-- Spelarräknare -->
             <div class="flex items-center gap-2.5">
               <div class="hub-inner px-3.5 py-2 rounded-xl text-right tabular-nums">
                 <span class="text-[10px] font-mono uppercase text-slate-400 block">Spelare inne</span>
@@ -201,7 +190,6 @@
             </div>
           </div>
 
-          <!-- 10-slots-indikator + Spelarpiller -->
           <div class="space-y-2.5">
             <div id="slot-matrix" class="grid grid-cols-10 gap-1.5"></div>
             <div id="roster-list" class="flex flex-wrap items-center gap-1.5 pt-0.5"></div>
@@ -217,7 +205,6 @@
             </span>
           </div>
 
-          <!-- Konsolsträng + Kopiera -->
           <div class="bg-[#11161f] border border-white/[0.09] rounded-lg p-1.5 pl-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div class="font-mono text-xs sm:text-sm select-all break-all py-1">
               <span id="cmd-connect-text" class="text-white font-semibold">connect cs.gubblir.se:25152</span><span id="cmd-pw-placeholder" class="text-slate-500 select-none">; password ••••••••</span>
@@ -228,7 +215,6 @@
             </button>
           </div>
 
-          <!-- Åtgärdsrad (Växlar mellan Lås upp och Upplåst Medlemsläge) -->
           <div class="flex flex-wrap items-center justify-between gap-3 pt-0.5">
             <div class="flex flex-wrap items-center gap-2">
               <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs sm:text-sm px-4 py-2.5 rounded-lg transition cursor-pointer">
@@ -259,7 +245,6 @@
     <!-- ========================================== -->
     <div id="main-view-overview" class="space-y-8">
       
-      <!-- Topplista Sektion -->
       <section class="hub-card rounded-2xl p-5 sm:p-6 space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
           <div class="flex items-center gap-3">
@@ -281,20 +266,21 @@
           </div>
         </div>
 
-        <!-- Topp-3 Podium (Visas automatiskt när minst 3 spelare finns) -->
+        <!-- Topp-3 Podium -->
         <div id="podium-grid" class="hidden grid-cols-1 md:grid-cols-3 gap-3.5"></div>
 
-        <!-- Ren Statistiktabell (Med ADR, K/D, HS%, MVPs) -->
+        <!-- Statistiktabell (Med Rating, K/D, ADR, Win%, HS%, MVPs) -->
         <div class="overflow-x-auto rounded-xl border border-white/[0.07] bg-[#0b0e14]">
           <table class="w-full text-left text-xs sm:text-sm tabular-nums">
             <thead>
               <tr class="text-[11px] text-slate-400 border-b border-white/[0.07] select-none font-semibold uppercase tracking-wider bg-[#11161f]/60">
                 <th class="py-3.5 pl-4 w-14">#</th>
                 <th class="py-3.5">Spelare</th>
+                <th class="py-3.5 text-center cursor-pointer hover:text-white transition text-amber-400" data-sort="skill_rating">Rating ↕</th>
                 <th class="py-3.5 text-center cursor-pointer hover:text-white transition" data-sort="matches_played">Matcher ↕</th>
-                <th class="py-3.5 text-left pl-4 cursor-pointer hover:text-white transition text-amber-400" data-sort="kd_ratio">K/D ↕</th>
+                <th class="py-3.5 text-center cursor-pointer hover:text-white transition" data-sort="kd_ratio">K/D ↕</th>
                 <th class="py-3.5 text-center cursor-pointer hover:text-white transition" data-sort="adr">ADR ↕</th>
-                <th class="py-3.5 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="total_kills">Kills / Deaths ↕</th>
+                <th class="py-3.5 text-center hidden sm:table-cell cursor-pointer hover:text-white transition" data-sort="win_rate">Win% ↕</th>
                 <th class="py-3.5 text-center hidden md:table-cell cursor-pointer hover:text-white transition" data-sort="hs_percentage">HS% ↕</th>
                 <th class="py-3.5 text-right pr-4 cursor-pointer hover:text-white transition" data-sort="total_mvps">MVPs ↕</th>
               </tr>
@@ -339,12 +325,12 @@
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Vänster (7 kol): Matematisk 5v5 Lagbalanserare -->
+        <!-- Vänster (7 kol): Självlärande 5v5 Lagbalanserare -->
         <section class="lg:col-span-7 hub-card rounded-2xl p-5 sm:p-6 space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.07] pb-4">
             <div>
-              <span class="text-[11px] font-mono font-bold uppercase text-amber-400 block">Slipp ojämna matcher</span>
-              <h2 class="text-lg font-bold text-white">5v5 Lagbalanserare (K/D & ADR)</h2>
+              <span class="text-[11px] font-mono font-bold uppercase text-amber-400 block">Självlärande GubbLir-Elo (ADR + K/D + Winrate)</span>
+              <h2 class="text-lg font-bold text-white">5v5 Lagbalanserare</h2>
             </div>
             <div class="flex items-center gap-2">
               <button id="btn-fetch-live-players" class="hub-inner hover:border-white/20 text-xs font-semibold text-slate-200 px-3 py-1.5 rounded-lg transition">
@@ -361,7 +347,7 @@
             <div class="flex items-center justify-between text-xs">
               <span class="text-slate-400">Klicka på spelare i listan för att lägga till (<span id="selected-count" class="text-amber-400 font-mono font-bold">0/10</span>):</span>
             </div>
-            <div id="known-players-chips" class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto p-2.5 hub-inner rounded-xl"></div>
+            <div id="known-players-chips" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-2.5 hub-inner rounded-xl"></div>
           </div>
 
           <!-- Manuell ruta + Balansera-knapp -->
@@ -376,7 +362,7 @@
           <!-- Resultat: Lag CT vs Lag T -->
           <div id="balancer-result-box" class="hidden space-y-4 pt-2 border-t border-white/[0.07]">
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400">Beräknad vinstchans:</span>
+              <span class="text-slate-400">Beräknad vinstchans (baserat på historik):</span>
               <span id="balance-fairness-badge" class="font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded">50% vs 50%</span>
             </div>
 
@@ -385,7 +371,7 @@
               <div class="hub-inner rounded-xl p-4 border-t-2 border-t-sky-400 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-mono font-bold uppercase text-sky-400">🛡️ LAG CT</span>
-                  <span id="team-ct-avg" class="text-[11px] font-mono text-slate-400">Snitt: 1.00 KD</span>
+                  <span id="team-ct-avg" class="text-[11px] font-mono text-slate-400">1000 Elo</span>
                 </div>
                 <ul id="team-ct-ul" class="space-y-1.5 text-xs sm:text-sm font-mono text-white"></ul>
               </div>
@@ -394,15 +380,28 @@
               <div class="hub-inner rounded-xl p-4 border-t-2 border-t-amber-400 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-mono font-bold uppercase text-amber-400">💣 LAG T</span>
-                  <span id="team-t-avg" class="text-[11px] font-mono text-slate-400">Snitt: 1.00 KD</span>
+                  <span id="team-t-avg" class="text-[11px] font-mono text-slate-400">1000 Elo</span>
                 </div>
                 <ul id="team-t-ul" class="space-y-1.5 text-xs sm:text-sm font-mono text-white"></ul>
               </div>
             </div>
 
-            <button id="btn-copy-balanced-teams" class="w-full bg-white/[0.07] hover:bg-white/[0.12] text-white text-xs font-semibold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
-              <i data-lucide="copy" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>Kopiera laguppställning till Discord / CS2</span>
+            <!-- Action-knappar: Kopiera eller Skicka direkt till CS2-servern via RCON -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button id="btn-copy-balanced-teams" class="bg-white/[0.07] hover:bg-white/[0.12] text-white text-xs font-semibold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                <i data-lucide="copy" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Kopiera till Discord</span>
+              </button>
+
+              <button id="btn-push-rcon-chat" class="bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+                <span>Posta lag i CS2-chatten (RCON)</span>
+              </button>
+            </div>
+
+            <button id="btn-push-rcon-load" class="w-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+              <span>Tvinga in lag & vald Veto-karta i MatchZy på servern (RCON)</span>
             </button>
           </div>
         </section>
@@ -444,7 +443,7 @@
           <div class="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center font-mono font-extrabold text-base text-amber-400" id="modal-player-rank">#1</div>
           <div>
             <h3 id="modal-player-name" class="font-bold text-lg text-white">Spelare</h3>
-            <span class="text-xs text-slate-400">GubbLir In-House Statistik</span>
+            <span id="modal-player-elo" class="text-xs font-mono text-amber-400">1000 GubbLir Rating</span>
           </div>
         </div>
         <button id="btn-close-modal" class="p-2 text-slate-400 hover:text-white hub-inner rounded-lg">
@@ -462,18 +461,18 @@
           <span id="modal-player-adr" class="text-2xl font-extrabold text-amber-400 font-mono mt-0.5 block">0</span>
         </div>
         <div class="hub-inner p-3.5 rounded-xl">
-          <span class="text-xs text-slate-400 block">Kills / Deaths</span>
-          <span id="modal-player-kills" class="text-sm font-mono font-bold text-slate-200 mt-1 block">0 / 0</span>
+          <span class="text-xs text-slate-400 block">Winrate %</span>
+          <span id="modal-player-winrate" class="text-base font-mono font-bold text-emerald-400 mt-1 block">0%</span>
         </div>
         <div class="hub-inner p-3.5 rounded-xl">
           <span class="text-xs text-slate-400 block">Headshot %</span>
-          <span id="modal-player-hs" class="text-sm font-mono font-bold text-emerald-400 mt-1 block">0%</span>
+          <span id="modal-player-hs" class="text-base font-mono font-bold text-slate-200 mt-1 block">0%</span>
         </div>
       </div>
 
       <div class="hub-inner rounded-xl p-3.5 flex items-center justify-between text-xs tabular-nums">
-        <span class="text-slate-400">Spelade matcher / MVPs</span>
-        <span id="modal-player-kpm" class="font-mono font-bold text-white">0 matcher · 0 MVPs</span>
+        <span class="text-slate-400">Kills / Deaths & MVPs</span>
+        <span id="modal-player-kpm" class="font-mono font-bold text-white">0 / 0 · 0 MVPs</span>
       </div>
     </div>
   </div>
@@ -496,18 +495,20 @@
     const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     const ICON_CDN = 'https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images';
     const ART_CDN = 'https://raw.githubusercontent.com/ghostcap-gaming/cs2-map-images/main/cs2';
-    const CACHE_KEY_LB = 'gubblir_lb_v7';
-    const CACHE_KEY_MATCHES = 'gubblir_matches_v7';
+    const CACHE_KEY_LB = 'gubblir_lb_v8';
+    const CACHE_KEY_MATCHES = 'gubblir_matches_v8';
     
     let unlockedPassword = null;
     let cachedLeaderboard = [];
     let cachedMatches = [];
     let liveServerPlayers = [];
     let currentServerMap = 'de_dust2';
-    let currentSortKey = 'kd_ratio';
+    let currentSortKey = 'skill_rating';
     let sortAscending = false;
     let bannedMaps = new Set();
     let lastBalancedText = '';
+    let lastBalancedCT = [];
+    let lastBalancedT = [];
 
     const MAPS = [
       { id: 'de_mirage', name: 'Mirage' },
@@ -556,7 +557,7 @@
       setTimeout(() => {
         toast.classList.add('opacity-0', 'translate-y-2');
         setTimeout(() => toast.remove(), 250);
-      }, 2200);
+      }, 2600);
     }
 
     async function copyText(text, successMessage) {
@@ -580,15 +581,25 @@
       }
     }
 
-    // Beräkna ADR och intern Skill-poäng för varje spelare
+    // Beräkna ADR, Winrate och Bayesian-viktad GubbLir Rating
     function enrichPlayerStats(rawList) {
       if (!Array.isArray(rawList)) return [];
       return rawList.map(p => {
+        const matches = parseInt(p.matches_played || 0, 10);
         const dmg = parseInt(p.total_damage || 0, 10);
         const rounds = parseInt(p.total_rounds || 0, 10);
-        const adr = rounds > 0 ? Math.round(dmg / rounds) : 0;
-        const kd = parseFloat(p.kd_ratio || 0);
-        return { ...p, adr, kd_num: kd };
+        const adr = p.adr !== undefined ? parseFloat(p.adr) : (rounds > 0 ? Math.round(dmg / rounds) : 75);
+        const kd = parseFloat(p.kd_ratio || 1.0);
+        const winRate = p.win_rate !== undefined ? parseInt(p.win_rate, 10) : 50;
+
+        let skillRating = p.skill_rating;
+        if (!skillRating) {
+          const confidence = Math.min(matches / 5.0, 1.0);
+          const rawDelta = ((kd - 1.0) * 350) + ((adr - 75.0) * 4.5) + ((winRate - 50.0) * 3.0);
+          skillRating = Math.max(400, Math.round(1000 + (rawDelta * confidence)));
+        }
+
+        return { ...p, adr: Math.round(adr), kd_num: kd, win_rate: winRate, skill_rating: skillRating };
       });
     }
 
@@ -675,11 +686,12 @@
       const modal = document.getElementById('player-modal');
       document.getElementById('modal-player-rank').textContent = `#${rank}`;
       document.getElementById('modal-player-name').textContent = player.name || 'Spelare';
+      document.getElementById('modal-player-elo').textContent = `${player.skill_rating || 1000} GubbLir Rating`;
       document.getElementById('modal-player-kd').textContent = player.kd_ratio || '0.00';
       document.getElementById('modal-player-adr').textContent = player.adr ? `${player.adr}` : '–';
-      document.getElementById('modal-player-kills').textContent = `${player.total_kills || 0} / ${player.total_deaths || 0}`;
+      document.getElementById('modal-player-winrate').textContent = player.win_rate !== undefined ? `${player.win_rate}%` : '–';
       document.getElementById('modal-player-hs').textContent = player.hs_percentage ? `${player.hs_percentage}%` : '0%';
-      document.getElementById('modal-player-kpm').textContent = `${player.matches_played || 0} matcher · ${player.total_mvps || 0} MVPs`;
+      document.getElementById('modal-player-kpm').textContent = `${player.total_kills || 0}K / ${player.total_deaths || 0}D · ${player.total_mvps || 0} MVPs`;
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -707,11 +719,11 @@
           <div>
             <span class="text-[10px] font-mono font-extrabold uppercase ${item.color}">${item.tag}</span>
             <div class="font-bold text-base text-white mt-0.5">${escapeHtml(item.p.name)}</div>
-            <div class="text-xs text-slate-400 font-mono mt-0.5">${item.p.matches_played} matcher · ${item.p.adr || '–'} ADR</div>
+            <div class="text-xs text-slate-400 font-mono mt-0.5">${item.p.kd_ratio} KD · ${item.p.adr || '–'} ADR</div>
           </div>
           <div class="text-right font-mono">
-            <span class="text-[10px] text-slate-400 uppercase block">K/D</span>
-            <span class="text-xl font-extrabold text-white">${item.p.kd_ratio || '0.00'}</span>
+            <span class="text-[10px] text-slate-400 uppercase block">Rating</span>
+            <span class="text-xl font-extrabold text-amber-400">${item.p.skill_rating || 1000}</span>
           </div>
         </div>
       `).join('');
@@ -734,7 +746,7 @@
       if (!players || players.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="8" class="py-12 text-center text-slate-400 text-xs sm:text-sm">
+            <td colspan="9" class="py-12 text-center text-slate-400 text-xs sm:text-sm">
               Ingen statistik registrerad ännu. Spela klart en 5v5-match så rankas alla spelare automatiskt här.
             </td>
           </tr>
@@ -753,12 +765,13 @@
         tr.innerHTML = `
           <td class="py-3.5 pl-4">${getRankBadge(rank)}</td>
           <td class="py-3.5 font-semibold text-white">${escapeHtml(p.name)}</td>
+          <td class="py-3.5 text-center font-mono font-bold text-amber-400">${p.skill_rating || 1000}</td>
           <td class="py-3.5 text-center font-mono text-slate-400">${p.matches_played}</td>
-          <td class="py-3.5 pl-4 font-mono ${kdClass}">${p.kd_ratio || '0.00'}</td>
+          <td class="py-3.5 text-center font-mono ${kdClass}">${p.kd_ratio || '0.00'}</td>
           <td class="py-3.5 text-center font-mono text-slate-200">${p.adr || '–'}</td>
-          <td class="py-3.5 text-center font-mono text-slate-400 hidden sm:table-cell">${p.total_kills} / ${p.total_deaths}</td>
+          <td class="py-3.5 text-center font-mono text-slate-300 hidden sm:table-cell">${p.win_rate !== undefined ? p.win_rate + '%' : '–'}</td>
           <td class="py-3.5 text-center font-mono text-slate-400 hidden md:table-cell">${p.hs_percentage ? p.hs_percentage + '%' : '–'}</td>
-          <td class="py-3.5 text-right pr-4 font-mono font-semibold text-amber-400">${p.total_mvps || 0}</td>
+          <td class="py-3.5 text-right pr-4 font-mono font-semibold text-slate-200">${p.total_mvps || 0}</td>
         `;
         tr.addEventListener('click', () => openPlayerModal(p, rank));
         tbody.appendChild(tr);
@@ -833,7 +846,7 @@
         return sortAscending ? valA - valB : valB - valA;
       });
 
-      if (!query && currentSortKey === 'kd_ratio' && !sortAscending) {
+      if (!query && !sortAscending) {
         renderPodium(filtered);
       } else {
         document.getElementById('podium-grid').classList.add('hidden');
@@ -842,7 +855,7 @@
       renderBalancerChips();
     }
 
-    // Smart 5v5 Team Balancer (Testar alla 252 kombinationer för optimal balans)
+    // Självlärande 5v5 Lagbalanserare
     function renderBalancerChips() {
       const container = document.getElementById('known-players-chips');
       const textarea = document.getElementById('balancer-textarea');
@@ -852,7 +865,7 @@
       document.getElementById('selected-count').textContent = `${currentNames.length}/10`;
 
       if (cachedLeaderboard.length === 0) {
-        container.innerHTML = '<span class="text-xs text-slate-500">Inga spelare i databasen ännu — skriv in 10 namn i rutan nedan.</span>';
+        container.innerHTML = '<span class="text-xs text-slate-500">Inga spelare i databasen ännu — skriv in 10 namn i rutan nedan (nya spelare startar på 1000 Elo).</span>';
         return;
       }
 
@@ -863,7 +876,7 @@
         chip.className = isSelected
           ? 'text-xs font-mono font-bold bg-amber-500 text-black px-2.5 py-1 rounded-lg transition'
           : 'text-xs font-mono text-slate-300 bg-[#11161f] hover:bg-[#161c28] border border-white/[0.08] px-2.5 py-1 rounded-lg transition';
-        chip.textContent = `${p.name} (${p.kd_ratio})`;
+        chip.textContent = `${p.name} (${p.skill_rating})`;
 
         chip.addEventListener('click', () => {
           let list = textarea.value.split('\n').map(s => s.trim()).filter(Boolean);
@@ -888,12 +901,52 @@
     function getPlayerRating(name) {
       const found = cachedLeaderboard.find(p => (p.name || '').toLowerCase() === name.toLowerCase());
       if (!found) {
-        return { name, kd: 1.0, adr: 75, score: 1000 };
+        return { name, steamid64: 'unknown', kd: 1.0, adr: 75, score: 1000 };
       }
-      const kd = parseFloat(found.kd_ratio || 1.0);
-      const adr = found.adr || 75;
-      const score = Math.round((kd * 650) + (adr * 4.5));
-      return { name: found.name, kd, adr, score };
+      return {
+        name: found.name,
+        steamid64: found.steamid64 || 'unknown',
+        kd: parseFloat(found.kd_ratio || 1.0),
+        adr: found.adr || 75,
+        score: found.skill_rating || 1000
+      };
+    }
+
+    async function pushBalancedMatchToServer(mode) {
+      if (!unlockedPassword) {
+        showToast('Logga in med Discord (GubbLir medlem) först!');
+        return;
+      }
+      if (lastBalancedCT.length === 0 || lastBalancedT.length === 0) {
+        showToast('Beräkna lagen först!');
+        return;
+      }
+
+      const remainingMaps = MAPS.filter(m => !bannedMaps.has(m.id));
+      const chosenMap = remainingMaps.length === 1 ? remainingMaps[0].id : currentServerMap;
+
+      showToast('Skickar till CS2-servern via RCON...');
+      try {
+        const res = await fetch(`${STATS_API_BASE}/api/match/push-to-server`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: unlockedPassword,
+            mode: mode,
+            map: chosenMap,
+            teamCT: lastBalancedCT,
+            teamT: lastBalancedT
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.ok) {
+          showToast(data.message || 'Skickat till CS2-servern!');
+        } else {
+          showToast(data.error || 'Kunde inte skicka till servern');
+        }
+      } catch (err) {
+        showToast('Kunde inte nå Render-backend');
+      }
     }
 
     function setupTeamBalancer() {
@@ -902,6 +955,8 @@
       const btnClear = document.getElementById('btn-clear-balancer');
       const btnRun = document.getElementById('btn-run-balancer');
       const btnCopy = document.getElementById('btn-copy-balanced-teams');
+      const btnPushChat = document.getElementById('btn-push-rcon-chat');
+      const btnPushLoad = document.getElementById('btn-push-rcon-load');
       const resultBox = document.getElementById('balancer-result-box');
 
       textarea.addEventListener('input', renderBalancerChips);
@@ -938,7 +993,6 @@
         let bestTeamB = [];
         let minDiff = Infinity;
 
-        // Rekursiv kombinationssökning (252 kombinationer vid 10 spelare)
         function findBestSplit(idx, currentA) {
           if (currentA.length === half) {
             const setA = new Set(currentA);
@@ -958,7 +1012,6 @@
           }
           if (idx >= n) return;
 
-          // Optimering: lås alltid spelare 0 i Lag A så halveras sökrymden
           if (idx === 0) {
             findBestSplit(1, [0]);
             return;
@@ -970,8 +1023,11 @@
 
         findBestSplit(0, []);
 
-        const avgKdA = (bestTeamA.reduce((a, p) => a + p.kd, 0) / bestTeamA.length).toFixed(2);
-        const avgKdB = (bestTeamB.reduce((a, p) => a + p.kd, 0) / bestTeamB.length).toFixed(2);
+        lastBalancedCT = bestTeamA;
+        lastBalancedT = bestTeamB;
+
+        const avgEloA = Math.round(bestTeamA.reduce((a, p) => a + p.score, 0) / bestTeamA.length);
+        const avgEloB = Math.round(bestTeamB.reduce((a, p) => a + p.score, 0) / bestTeamB.length);
         const sumScoreA = bestTeamA.reduce((a, p) => a + p.score, 0);
         const sumScoreB = bestTeamB.reduce((a, p) => a + p.score, 0);
         const totalScore = sumScoreA + sumScoreB;
@@ -979,24 +1035,24 @@
         const winProbB = (100 - parseFloat(winProbA)).toFixed(1);
 
         document.getElementById('balance-fairness-badge').textContent = `${winProbA}% vs ${winProbB}%`;
-        document.getElementById('team-ct-avg').textContent = `Snitt: ${avgKdA} KD`;
-        document.getElementById('team-t-avg').textContent = `Snitt: ${avgKdB} KD`;
+        document.getElementById('team-ct-avg').textContent = `Snitt: ${avgEloA} Rating`;
+        document.getElementById('team-t-avg').textContent = `Snitt: ${avgEloB} Rating`;
 
         document.getElementById('team-ct-ul').innerHTML = bestTeamA.map(p => `
           <li class="flex items-center justify-between py-0.5">
             <span class="truncate font-semibold">${escapeHtml(p.name)}</span>
-            <span class="text-xs text-slate-400">${p.kd.toFixed(2)} KD</span>
+            <span class="text-xs text-slate-400">${p.score} Elo</span>
           </li>
         `).join('');
 
         document.getElementById('team-t-ul').innerHTML = bestTeamB.map(p => `
           <li class="flex items-center justify-between py-0.5">
             <span class="truncate font-semibold">${escapeHtml(p.name)}</span>
-            <span class="text-xs text-slate-400">${p.kd.toFixed(2)} KD</span>
+            <span class="text-xs text-slate-400">${p.score} Elo</span>
           </li>
         `).join('');
 
-        lastBalancedText = `🛡️ LAG CT (Snitt ${avgKdA} KD): ${bestTeamA.map(p => p.name).join(', ')}\n💣 LAG T (Snitt ${avgKdB} KD): ${bestTeamB.map(p => p.name).join(', ')}`;
+        lastBalancedText = `🛡️ LAG CT (${avgEloA} Elo): ${bestTeamA.map(p => p.name).join(', ')}\n💣 LAG T (${avgEloB} Elo): ${bestTeamB.map(p => p.name).join(', ')}`;
         resultBox.classList.remove('hidden');
       });
 
@@ -1005,6 +1061,9 @@
           copyText(lastBalancedText, 'Balanserade lag kopierade!');
         }
       });
+
+      btnPushChat.addEventListener('click', () => pushBalancedMatchToServer('chat_only'));
+      btnPushLoad.addEventListener('click', () => pushBalancedMatchToServer('load_match'));
     }
 
     function renderMapPool() {
