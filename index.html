@@ -269,7 +269,7 @@
         <!-- Topp-3 Podium -->
         <div id="podium-grid" class="hidden grid-cols-1 md:grid-cols-3 gap-3.5"></div>
 
-        <!-- Statistiktabell (Med Rating, K/D, ADR, Win%, HS%, MVPs) -->
+        <!-- Statistiktabell -->
         <div class="overflow-x-auto rounded-xl border border-white/[0.07] bg-[#0b0e14]">
           <table class="w-full text-left text-xs sm:text-sm tabular-nums">
             <thead>
@@ -400,17 +400,17 @@
             </div>
 
             <button id="btn-push-rcon-load" class="w-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-              <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-              <span>Tvinga in lag & vald Veto-karta i MatchZy på servern (RCON)</span>
+              <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+              <span id="txt-push-rcon-load">Tvinga in lag i MatchZy på nuvarande karta (RCON)</span>
             </button>
           </div>
         </section>
 
-        <!-- Höger (5 kol): BO1 Kart-Veto (8 Kartor inkl. Cache) -->
+        <!-- Höger (5 kol): BO1 Kart-Veto (9 Kartor i 3x3 matris inkl. Cobblestone & Cache) -->
         <section class="lg:col-span-5 hub-card rounded-2xl p-5 sm:p-6 space-y-4">
           <div class="flex items-center justify-between border-b border-white/[0.07] pb-4">
             <div>
-              <span class="text-[11px] font-mono font-bold uppercase text-amber-400 block">8 Kartor i Poolen</span>
+              <span class="text-[11px] font-mono font-bold uppercase text-amber-400 block">9 Kartor i Poolen</span>
               <h2 class="text-lg font-bold text-white">Kart-Veto (BO1)</h2>
             </div>
             <div class="flex items-center gap-2">
@@ -424,9 +424,11 @@
             </div>
           </div>
 
-          <p class="text-xs text-slate-400">Klicka på de kartor ni vill banna tills en karta återstår (kommandot <code class="text-white font-mono">.map</code> kopieras automatiskt för vinnarkartan).</p>
+          <p class="text-xs text-slate-400">
+            Klicka på de kartor ni vill banna tills 1 karta återstår. Om ni inte kör Veto behåller MatchZy-knappen den karta servern redan ligger på (<strong id="veto-active-map-hint" class="text-white font-mono">de_dust2</strong>).
+          </p>
 
-          <div id="map-grid" class="grid grid-cols-2 gap-2.5"></div>
+          <div id="map-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
         </section>
 
       </div>
@@ -495,8 +497,8 @@
     const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     const ICON_CDN = 'https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images';
     const ART_CDN = 'https://raw.githubusercontent.com/ghostcap-gaming/cs2-map-images/main/cs2';
-    const CACHE_KEY_LB = 'gubblir_lb_v8';
-    const CACHE_KEY_MATCHES = 'gubblir_matches_v8';
+    const CACHE_KEY_LB = 'gubblir_lb_v9';
+    const CACHE_KEY_MATCHES = 'gubblir_matches_v9';
     
     let unlockedPassword = null;
     let cachedLeaderboard = [];
@@ -510,6 +512,7 @@
     let lastBalancedCT = [];
     let lastBalancedT = [];
 
+    // 9 Kartor (3x3 Grid inkl. Cobblestone & Cache)
     const MAPS = [
       { id: 'de_mirage', name: 'Mirage' },
       { id: 'de_inferno', name: 'Inferno' },
@@ -518,6 +521,7 @@
       { id: 'de_ancient', name: 'Ancient' },
       { id: 'de_anubis', name: 'Anubis' },
       { id: 'de_vertigo', name: 'Vertigo' },
+      { id: 'de_cbble', name: 'Cobblestone' },
       { id: 'de_cache', name: 'Cache' }
     ];
 
@@ -526,6 +530,28 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function getCleanMapName(mapId) {
+      const raw = (mapId || 'de_dust2').toLowerCase();
+      const found = MAPS.find(m => m.id === raw);
+      return found ? found.name : raw.replace('de_', '');
+    }
+
+    // Uppdaterar texten på den gröna MatchZy-knappen så man alltid vet vilken karta som laddas
+    function updateMatchLoadButtonLabel() {
+      const btnSpan = document.getElementById('txt-push-rcon-load');
+      const hintEl = document.getElementById('veto-active-map-hint');
+      if (hintEl) hintEl.textContent = currentServerMap;
+      if (!btnSpan) return;
+
+      const remainingMaps = MAPS.filter(m => !bannedMaps.has(m.id));
+      if (remainingMaps.length === 1) {
+        btnSpan.textContent = `Tvinga in lag & byt till ${remainingMaps[0].name} (Veto-vinnare)`;
+      } else {
+        const cleanCurrent = getCleanMapName(currentServerMap);
+        btnSpan.textContent = `Tvinga in lag i MatchZy på ${cleanCurrent} (Nuvarande karta)`;
+      }
     }
 
     function decodeBase64Json(rawEncoded) {
@@ -581,7 +607,6 @@
       }
     }
 
-    // Beräkna ADR, Winrate och Bayesian-viktad GubbLir Rating
     function enrichPlayerStats(rawList) {
       if (!Array.isArray(rawList)) return [];
       return rawList.map(p => {
@@ -660,17 +685,29 @@
     async function pollStatus() {
       if (document.hidden) return;
       try {
-        const res = await fetch('https://gubblir-api.rasmusaspenback.workers.dev/api/server/status');
-        if (res.ok) {
+        let res = await fetch(`${STATS_API_BASE}/api/server/live`, {
+          signal: AbortSignal.timeout(8000)
+        }).catch(() => null);
+
+        if (!res || !res.ok) {
+          res = await fetch('https://gubblir-api.rasmusaspenback.workers.dev/api/server/status');
+        }
+
+        if (res && res.ok) {
           const data = await res.json();
           if (data.map) {
             const rawMap = data.map.toLowerCase();
             currentServerMap = rawMap;
-            const mapObj = MAPS.find(m => m.id === rawMap);
             document.getElementById('srv-map').textContent = rawMap;
-            document.getElementById('srv-map-clean').textContent = mapObj ? mapObj.name : rawMap.replace('de_', '');
-            document.getElementById('srv-map-pin').src = `${ICON_CDN}/${rawMap}.png`;
-            document.getElementById('srv-hero-bg').src = `${ART_CDN}/${rawMap}.png`;
+            document.getElementById('srv-map-clean').textContent = getCleanMapName(rawMap);
+            
+            const pinEl = document.getElementById('srv-map-pin');
+            const bgEl = document.getElementById('srv-hero-bg');
+            pinEl.style.display = 'block';
+            bgEl.style.display = 'block';
+            pinEl.src = `${ICON_CDN}/${rawMap}.png`;
+            bgEl.src = `${ART_CDN}/${rawMap}.png`;
+            updateMatchLoadButtonLabel();
           }
           const pCount = data.playerCount !== undefined ? data.playerCount : 0;
           const pMax = data.maxPlayers !== undefined ? data.maxPlayers : 10;
@@ -855,7 +892,6 @@
       renderBalancerChips();
     }
 
-    // Självlärande 5v5 Lagbalanserare
     function renderBalancerChips() {
       const container = document.getElementById('known-players-chips');
       const textarea = document.getElementById('balancer-textarea');
@@ -865,7 +901,7 @@
       document.getElementById('selected-count').textContent = `${currentNames.length}/10`;
 
       if (cachedLeaderboard.length === 0) {
-        container.innerHTML = '<span class="text-xs text-slate-500">Inga spelare i databasen ännu — skriv in 10 namn i rutan nedan (nya spelare startar på 1000 Elo).</span>';
+        container.innerHTML = '<span class="text-xs text-slate-500">Inga spelare i databasen ännu — klicka på "Hämta från servern" eller skriv in namn nedan (nya spelare startar på 1000 Elo).</span>';
         return;
       }
 
@@ -899,22 +935,29 @@
     }
 
     function getPlayerRating(name) {
-      const found = cachedLeaderboard.find(p => (p.name || '').toLowerCase() === name.toLowerCase());
-      if (!found) {
-        return { name, steamid64: 'unknown', kd: 1.0, adr: 75, score: 1000 };
+      const lower = name.toLowerCase();
+      const liveMatch = liveServerPlayers.find(p => (p.name || '').toLowerCase() === lower);
+      const dbMatch = cachedLeaderboard.find(p => (p.name || '').toLowerCase() === lower);
+
+      const steamid64 = (liveMatch && liveMatch.steamid64 && liveMatch.steamid64 !== 'unknown')
+        ? liveMatch.steamid64
+        : (dbMatch?.steamid64 || 'unknown');
+
+      if (!dbMatch) {
+        return { name, steamid64, kd: 1.0, adr: 75, score: 1000 };
       }
       return {
-        name: found.name,
-        steamid64: found.steamid64 || 'unknown',
-        kd: parseFloat(found.kd_ratio || 1.0),
-        adr: found.adr || 75,
-        score: found.skill_rating || 1000
+        name: dbMatch.name,
+        steamid64,
+        kd: parseFloat(dbMatch.kd_ratio || 1.0),
+        adr: dbMatch.adr || 75,
+        score: dbMatch.skill_rating || 1000
       };
     }
 
     async function pushBalancedMatchToServer(mode) {
       if (!unlockedPassword) {
-        showToast('Logga in med Discord (GubbLir medlem) först!');
+        showToast('Logga in med Discord (GubbLir medlem) uppe till höger först!');
         return;
       }
       if (lastBalancedCT.length === 0 || lastBalancedT.length === 0) {
@@ -925,7 +968,7 @@
       const remainingMaps = MAPS.filter(m => !bannedMaps.has(m.id));
       const chosenMap = remainingMaps.length === 1 ? remainingMaps[0].id : currentServerMap;
 
-      showToast('Skickar till CS2-servern via RCON...');
+      showToast(`Skickar till CS2-servern (${getCleanMapName(chosenMap)})...`);
       try {
         const res = await fetch(`${STATS_API_BASE}/api/match/push-to-server`, {
           method: 'POST',
@@ -938,14 +981,18 @@
             teamT: lastBalancedT
           })
         });
-        const data = await res.json();
+
+        const rawText = await res.text();
+        let data = {};
+        try { data = JSON.parse(rawText); } catch (e) {}
+
         if (res.ok && data.ok) {
           showToast(data.message || 'Skickat till CS2-servern!');
         } else {
-          showToast(data.error || 'Kunde inte skicka till servern');
+          showToast(data.error || `Fel från Render (HTTP ${res.status})`);
         }
       } catch (err) {
-        showToast('Kunde inte nå Render-backend');
+        showToast('Render startar upp (vänta 20 sek och prova igen)');
       }
     }
 
@@ -1053,6 +1100,7 @@
         `).join('');
 
         lastBalancedText = `🛡️ LAG CT (${avgEloA} Elo): ${bestTeamA.map(p => p.name).join(', ')}\n💣 LAG T (${avgEloB} Elo): ${bestTeamB.map(p => p.name).join(', ')}`;
+        updateMatchLoadButtonLabel();
         resultBox.classList.remove('hidden');
       });
 
@@ -1078,14 +1126,14 @@
         const isWinner = winnerId === m.id;
 
         const btn = document.createElement('button');
-        btn.className = `relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#0b0e14] p-3 text-left flex items-center justify-between transition ${isBanned ? 'map-banned' : 'hover:border-amber-500/50'} ${isWinner ? 'map-winner' : ''}`;
+        btn.className = `relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#0b0e14] p-2.5 text-left flex items-center justify-between transition ${isBanned ? 'map-banned' : 'hover:border-amber-500/50'} ${isWinner ? 'map-winner' : ''}`;
 
         btn.innerHTML = `
-          <div class="flex items-center gap-2.5 relative z-10">
-            <img src="${ICON_CDN}/${m.id}.png" alt="${m.name}" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
-            <div>
-              <span class="text-xs sm:text-sm font-bold text-white block leading-tight">${m.name}</span>
-              <span class="text-[11px] font-mono ${isBanned ? 'text-rose-400 line-through' : isWinner ? 'text-emerald-400 font-bold' : 'text-slate-400'}">
+          <div class="flex items-center gap-2 relative z-10 overflow-hidden">
+            <img src="${ICON_CDN}/${m.id}.png" alt="${m.name}" class="w-7 h-7 object-contain shrink-0" onerror="this.style.display='none'">
+            <div class="truncate">
+              <span class="text-xs font-bold text-white block leading-tight truncate">${m.name}</span>
+              <span class="text-[10px] font-mono block truncate ${isBanned ? 'text-rose-400 line-through' : isWinner ? 'text-emerald-400 font-bold' : 'text-slate-400'}">
                 ${isBanned ? 'BANNAD' : isWinner ? '★ VINNARE' : m.id}
               </span>
             </div>
@@ -1099,6 +1147,7 @@
             bannedMaps.add(m.id);
           }
           renderMapPool();
+          updateMatchLoadButtonLabel();
 
           const left = MAPS.filter(x => !bannedMaps.has(x.id));
           if (left.length === 1) {
@@ -1114,6 +1163,7 @@
       document.getElementById('btn-reset-veto').addEventListener('click', () => {
         bannedMaps.clear();
         renderMapPool();
+        updateMatchLoadButtonLabel();
       });
 
       document.getElementById('btn-random-map').addEventListener('click', () => {
@@ -1123,6 +1173,7 @@
           if (idx !== winnerIndex) bannedMaps.add(m.id);
         });
         renderMapPool();
+        updateMatchLoadButtonLabel();
         const chosen = MAPS[winnerIndex];
         copyText(`.map ${chosen.id}`, `Slumpade ${chosen.name} (.map ${chosen.id} kopierad)`);
       });
@@ -1316,7 +1367,7 @@
       checkAuth();
       loadStats();
 
-      setInterval(pollStatus, 15000);
+      setInterval(pollStatus, 8000);
 
       document.querySelectorAll('.nav-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => switchMainView(btn.getAttribute('data-nav-tab')));
