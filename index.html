@@ -93,7 +93,6 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Hjälpklasser för dynamisk accent */
     .accent-text { color: var(--accent); }
     .accent-bg { background-color: var(--accent); }
     .accent-badge {
@@ -111,7 +110,6 @@
       -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 85%);
     }
 
-    /* Monokrom Pro-Yta utan blåstick */
     .glass-panel {
       background: linear-gradient(180deg, rgba(24, 24, 27, 0.85) 0%, rgba(14, 14, 16, 0.96) 100%);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -122,7 +120,6 @@
       -webkit-backdrop-filter: blur(24px);
     }
 
-    /* Taktila Kommandokort (Rent monokroma med accent-hover) */
     .deck-button {
       background: var(--bg-surface);
       border: 1px solid rgba(255, 255, 255, 0.07);
@@ -139,7 +136,6 @@
       transform: translateY(0) scale(0.98);
     }
 
-    /* Fysisk 3D Keycap */
     .keycap {
       background: linear-gradient(180deg, #262629 0%, #161618 100%);
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -147,7 +143,6 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Fotografiska Kartkort (Enhetlig mörk vinjett istället för regnbågsfärger) */
     .map-poster {
       position: relative;
       overflow: hidden;
@@ -169,7 +164,6 @@
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Veto & Roulette States */
     .map-banned {
       opacity: 0.22;
       filter: grayscale(100%);
@@ -221,17 +215,27 @@
         <a href="#statistik" class="px-4 py-2 rounded-lg hover:text-white hover:bg-white/[0.05] transition">Topplista</a>
       </nav>
       
-      <!-- Höger: Discord & Inloggad Profil -->
-      <div class="flex items-center gap-3">
-        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-zinc-200 hover:text-black bg-white/[0.05] hover:bg-white border border-white/[0.1] px-4 py-2 rounded-xl transition flex items-center gap-2">
-          <i data-lucide="headphones" class="w-4 h-4 accent-text"></i>
-          <span>Discord</span>
+      <!-- Höger: Discord Server-länk + Riktig Inloggningsknapp / Profil -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white px-3 py-2 rounded-xl hover:bg-white/[0.05] transition" title="Öppna vår Discord-server">
+          <i data-lucide="headphones" class="w-3.5 h-3.5 accent-text"></i>
+          <span>Discord-server</span>
         </a>
 
-        <div id="user-profile" class="hidden items-center gap-2.5 bg-white/[0.05] border border-white/[0.1] pl-2.5 pr-3 py-1.5 rounded-xl">
+        <!-- Riktig OAuth2-inloggningsknapp i Headern -->
+        <a id="btn-header-login" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="text-xs sm:text-sm font-bold text-black bg-white hover:bg-zinc-200 px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
+          <i data-lucide="lock-open" class="w-3.5 h-3.5"></i>
+          <span>Logga in</span>
+        </a>
+
+        <!-- Visas när man är inloggad -->
+        <div id="user-profile" class="hidden items-center gap-2.5 bg-white/[0.06] border border-white/[0.12] pl-2.5 pr-2.5 py-1.5 rounded-xl">
           <img id="user-avatar" class="w-6 h-6 rounded-full object-cover border border-white/30" src="" alt="">
-          <span id="user-name" class="text-xs sm:text-sm font-bold text-white"></span>
-          <button id="btn-logout" class="text-zinc-400 hover:text-white ml-1 p-1 transition" title="Logga ut">
+          <div class="flex flex-col">
+            <span id="user-name" class="text-xs font-bold text-white leading-none"></span>
+            <span id="user-role-badge" class="text-[10px] font-mono accent-text mt-0.5">Verifierad</span>
+          </div>
+          <button id="btn-logout" class="text-zinc-400 hover:text-rose-400 ml-1 p-1 transition" title="Logga ut">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
         </div>
@@ -287,12 +291,20 @@
             </button>
           </div>
 
-          <!-- Primär Knapp (Kritvit högkontrast med subtil accent) -->
+          <!-- Primär Knapp + Sekundär Länk -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1 relative z-10">
-            <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-zinc-200 text-black font-display font-extrabold text-base px-7 py-4 rounded-2xl transition shadow-[0_10px_30px_rgba(255,255,255,0.12)] active:scale-95 cursor-pointer shrink-0">
-              <i id="icon-primary-action" data-lucide="shield-check" class="w-5 h-5"></i>
-              <span id="txt-primary-action">Lås upp lösenord med Discord</span>
-            </a>
+            <div class="flex flex-wrap items-center gap-3">
+              <a id="btn-primary-action" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-zinc-200 text-black font-display font-extrabold text-base px-7 py-4 rounded-2xl transition shadow-[0_10px_30px_rgba(255,255,255,0.12)] active:scale-95 cursor-pointer shrink-0">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                <span id="txt-primary-action">Lås upp lösenord med Discord</span>
+              </a>
+
+              <a id="btn-retry-auth" href="https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read" class="hidden items-center justify-center gap-2 deck-button text-white font-semibold text-xs px-4 py-3 rounded-xl">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 accent-text"></i>
+                <span>Kontrollera roll igen</span>
+              </a>
+            </div>
+
             <span id="cta-helper-text" class="text-xs sm:text-sm text-zinc-400 leading-snug">
               Verifierar din roll i GubbLir-Discorden och fyller i lösenordet automatiskt.
             </span>
@@ -342,7 +354,7 @@
             </div>
           </div>
 
-          <!-- Enhetlig 10-Slot Barometer (Utan spretiga babyblå/gula färger) -->
+          <!-- Enhetlig 10-Slot Barometer -->
           <div class="bg-black/60 backdrop-blur-md border border-white/[0.08] p-4 rounded-2xl space-y-2.5">
             <div class="flex items-center justify-between text-xs font-medium">
               <span class="text-zinc-400">5v5 Lobby-kapacitet</span>
@@ -397,7 +409,7 @@
       <div id="map-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
     </section>
 
-    <!-- 3. TAKTILT COMMAND DECK (Ren monokrom typografi utan julgransfärger) -->
+    <!-- 3. TAKTILT COMMAND DECK -->
     <section id="kommandon" class="glass-panel rounded-3xl p-6 sm:p-8 space-y-6 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-5">
         <div>
@@ -723,10 +735,10 @@
   <!-- Live Färgpalett-Väljare (Nere till vänster) -->
   <div class="fixed bottom-4 left-4 z-40 bg-[#111113]/90 backdrop-blur-xl border border-white/[0.12] rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl">
     <span class="text-[11px] font-mono text-zinc-400 pl-2.5 pr-1 hidden sm:inline">Palett:</span>
-    <button data-set-theme="copper" class="theme-dot w-6 h-6 rounded-full bg-[#e06336] ring-2 ring-white transition" title="1. Tactical Copper (Bränd Koppar & Kolfiber)"></button>
-    <button data-set-theme="brass" class="theme-dot w-6 h-6 rounded-full bg-[#c5a059] opacity-60 hover:opacity-100 transition" title="2. Vintage Brass (Borstad Mässing #D4AF37)"></button>
-    <button data-set-theme="signal" class="theme-dot w-6 h-6 rounded-full bg-[#ff5500] opacity-60 hover:opacity-100 transition" title="3. Source 2 Signal (Esport Orange)"></button>
-    <button data-set-theme="titanium" class="theme-dot w-6 h-6 rounded-full bg-[#60a5fa] opacity-60 hover:opacity-100 transition" title="4. Nordic Titanium (Kallt Stål & Is)"></button>
+    <button data-set-theme="copper" data-color="bg-[#e06336]" class="theme-dot w-6 h-6 rounded-full bg-[#e06336] ring-2 ring-white transition" title="1. Tactical Copper (Bränd Koppar & Kolfiber)"></button>
+    <button data-set-theme="brass" data-color="bg-[#c5a059]" class="theme-dot w-6 h-6 rounded-full bg-[#c5a059] opacity-60 hover:opacity-100 transition" title="2. Vintage Brass (Borstad Mässing #D4AF37)"></button>
+    <button data-set-theme="signal" data-color="bg-[#ff5500]" class="theme-dot w-6 h-6 rounded-full bg-[#ff5500] opacity-60 hover:opacity-100 transition" title="3. Source 2 Signal (Esport Orange)"></button>
+    <button data-set-theme="titanium" data-color="bg-[#60a5fa]" class="theme-dot w-6 h-6 rounded-full bg-[#60a5fa] opacity-60 hover:opacity-100 transition" title="4. Nordic Titanium (Kallt Stål & Is)"></button>
   </div>
 
   <!-- Footer -->
@@ -734,7 +746,7 @@
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <span>GUBBLIR · Grundat våren 2015 · För oss som vill, men som insett att vi inte längre kan.</span>
       <div class="flex items-center gap-5">
-        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hover:text-white transition font-semibold">Discord</a>
+        <a href="https://join.gubblir.se" target="_blank" rel="noopener noreferrer" class="hover:text-white transition font-semibold">Gå med i vår Discord</a>
         <span class="font-mono text-zinc-300">cs.gubblir.se:25152</span>
       </div>
     </div>
@@ -747,8 +759,9 @@
     const STATS_API_BASE = 'https://matchzy-uploader.onrender.com';
     const ICON_CDN = 'https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images';
     const ART_CDN = 'https://raw.githubusercontent.com/ghostcap-gaming/cs2-map-images/main/cs2';
-    const CACHE_KEY_LB = 'gubblir_lb_pro_v4';
-    const CACHE_KEY_MATCHES = 'gubblir_matches_pro_v4';
+    const OAUTH_URL = 'https://discord.com/oauth2/authorize?client_id=1471164068151820441&response_type=code&redirect_uri=https%3A%2F%2Fgubblir-api.rasmusaspenback.workers.dev%2Fapi%2Fauth%2Fcallback&scope=identify+guilds+guilds.members.read';
+    const CACHE_KEY_LB = 'gubblir_lb_pro_v5';
+    const CACHE_KEY_MATCHES = 'gubblir_matches_pro_v5';
     
     let unlockedPassword = null;
     let cachedLeaderboard = [];
@@ -779,10 +792,11 @@
       localStorage.setItem('gubblir_theme', themeName);
 
       document.querySelectorAll('.theme-dot').forEach(btn => {
+        const bgColor = btn.getAttribute('data-color');
         if (btn.getAttribute('data-set-theme') === themeName) {
-          btn.className = `theme-dot w-6 h-6 rounded-full ${btn.className.match(/bg-\[[^\]]+\]/)[0]} ring-2 ring-white opacity-100 scale-110 transition`;
+          btn.className = `theme-dot w-6 h-6 rounded-full ${bgColor} ring-2 ring-white opacity-100 scale-110 transition`;
         } else {
-          btn.className = `theme-dot w-6 h-6 rounded-full ${btn.className.match(/bg-\[[^\]]+\]/)[0]} opacity-50 hover:opacity-100 transition`;
+          btn.className = `theme-dot w-6 h-6 rounded-full ${bgColor} opacity-50 hover:opacity-100 transition`;
         }
       });
     }
@@ -792,6 +806,17 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function decodeBase64Json(rawEncoded) {
+      let base64 = decodeURIComponent(rawEncoded).trim().replace(/-/g, '+').replace(/_/g, '/');
+      while (base64.length % 4 !== 0) {
+        base64 += '=';
+      }
+      const binaryStr = atob(base64);
+      const bytes = Uint8Array.from(binaryStr, c => c.charCodeAt(0));
+      const utf8Str = new TextDecoder('utf-8').decode(bytes);
+      return JSON.parse(utf8Str);
     }
 
     function showToast(text) {
@@ -818,7 +843,7 @@
       setTimeout(() => {
         toast.classList.add('opacity-0', 'translate-y-3');
         setTimeout(() => toast.remove(), 300);
-      }, 2400);
+      }, 2500);
     }
 
     async function copyText(text, successMessage) {
@@ -918,6 +943,7 @@
           const data = await res.json();
           if (data.map) {
             const rawMap = data.map.toLowerCase();
+            const mapChanged = currentServerMap !== rawMap;
             currentServerMap = rawMap;
             const mapObj = MAPS.find(m => m.id === rawMap);
             document.getElementById('srv-map').textContent = rawMap;
@@ -929,7 +955,7 @@
             bgEl.style.display = 'block';
             pinEl.src = `${ICON_CDN}/${rawMap}.png`;
             bgEl.src = `${ART_CDN}/${rawMap}.png`;
-            renderMapPool();
+            if (mapChanged) renderMapPool();
           }
           const pCount = data.playerCount !== undefined ? data.playerCount : 0;
           const pMax = data.maxPlayers !== undefined ? data.maxPlayers : 10;
@@ -1358,19 +1384,23 @@
       cmdTabBinds.addEventListener('click', () => activateCmdTab(cmdTabBinds, cmdGridBinds, false));
     }
 
-    function applyMemberState(authData) {
+    function applyMemberState(authData, fromFreshLogin = false) {
+      if (!authData || !authData.user) return;
+
+      const headerLoginBtn = document.getElementById('btn-header-login');
       const userProfile = document.getElementById('user-profile');
       const userAvatar = document.getElementById('user-avatar');
       const userName = document.getElementById('user-name');
+      const userRoleBadge = document.getElementById('user-role-badge');
       const passwordField = document.getElementById('srv-password-field');
       const connectText = document.getElementById('cmd-connect-text');
       const pwPlaceholder = document.getElementById('cmd-pw-placeholder');
       const unlockBadge = document.getElementById('unlock-status-badge');
       const primaryBtn = document.getElementById('btn-primary-action');
-      const primaryTxt = document.getElementById('txt-primary-action');
-      const primaryIcon = document.getElementById('icon-primary-action');
+      const retryAuthBtn = document.getElementById('btn-retry-auth');
       const helperText = document.getElementById('cta-helper-text');
 
+      headerLoginBtn.classList.add('hidden');
       userProfile.classList.remove('hidden');
       userProfile.classList.add('flex');
       userName.textContent = authData.user.username;
@@ -1378,6 +1408,8 @@
 
       if (authData.isGubblirare && authData.password) {
         unlockedPassword = authData.password;
+        userRoleBadge.textContent = 'Verifierad';
+        userRoleBadge.className = 'text-[10px] font-mono text-emerald-400 mt-0.5';
 
         const fullConnectCmd = `connect cs.gubblir.se:25152; password ${authData.password}`;
         connectText.textContent = fullConnectCmd;
@@ -1390,17 +1422,36 @@
         passwordField.className = 'font-mono text-white font-bold cursor-pointer select-all';
         passwordField.onclick = () => copyText(authData.password, 'Lösenordet kopierat!');
 
+        retryAuthBtn.classList.add('hidden');
+        retryAuthBtn.classList.remove('inline-flex');
+
         primaryBtn.removeAttribute('href');
-        primaryBtn.onclick = () => copyText(fullConnectCmd, 'Kommando med lösenord kopierat!');
-        primaryTxt.textContent = 'Kopiera kommando med lösenord';
-        primaryIcon.setAttribute('data-lucide', 'copy');
+        primaryBtn.onclick = (e) => {
+          e.preventDefault();
+          copyText(fullConnectCmd, 'Kommando med lösenord kopierat!');
+        };
+        primaryBtn.innerHTML = '<i data-lucide="copy" class="w-5 h-5"></i><span id="txt-primary-action">Kopiera kommando med lösenord</span>';
         helperText.textContent = `Inloggad som ${authData.user.username}. Klistra in direkt i CS2-konsolen (~).`;
+
+        if (fromFreshLogin) {
+          showToast(`Välkommen ${authData.user.username}! Lösenordet är upplåst.`);
+        }
       } else {
+        userRoleBadge.textContent = 'Saknar roll';
+        userRoleBadge.className = 'text-[10px] font-mono text-rose-400 mt-0.5';
+
         primaryBtn.href = 'https://join.gubblir.se';
         primaryBtn.target = '_blank';
-        primaryTxt.textContent = 'Gå med i GubbLir Discord';
-        primaryIcon.setAttribute('data-lucide', 'arrow-up-right');
+        primaryBtn.onclick = null;
+        primaryBtn.innerHTML = '<i data-lucide="external-link" class="w-5 h-5"></i><span id="txt-primary-action">Gå med i GubbLir Discord</span>';
+
+        retryAuthBtn.classList.remove('hidden');
+        retryAuthBtn.classList.add('inline-flex');
         helperText.textContent = 'Du är inloggad men saknar medlemsrollen i vår Discord.';
+
+        if (fromFreshLogin) {
+          showToast(`Inloggad som ${authData.user.username} (Saknar medlemsroll)`);
+        }
       }
       lucide.createIcons();
     }
@@ -1408,22 +1459,36 @@
     function checkAuth() {
       if (window.location.hash.startsWith('#auth=')) {
         try {
-          const rawEncoded = window.location.hash.replace('#auth=', '');
-          const data = JSON.parse(atob(decodeURIComponent(rawEncoded)));
+          const rawEncoded = window.location.hash.slice(6);
+          const data = decodeBase64Json(rawEncoded);
           window.history.replaceState({}, document.title, window.location.pathname);
 
-          if (data.authenticated) {
+          if (data && data.authenticated) {
             localStorage.setItem('gubblir_auth', JSON.stringify(data));
-            applyMemberState(data);
+            applyMemberState(data, true);
             return;
           }
-        } catch (err) {}
+        } catch (err) {
+          console.error('Auth decode error:', err);
+          showToast('Kunde inte läsa inloggningen — försök igen');
+        }
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('auth_error')) {
+        showToast('Inloggningen avbröts eller misslyckades');
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
 
       const cached = localStorage.getItem('gubblir_auth');
       if (cached) {
         try {
-          applyMemberState(JSON.parse(cached));
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.authenticated && parsed.user) {
+            applyMemberState(parsed, false);
+          } else {
+            localStorage.removeItem('gubblir_auth');
+          }
         } catch (e) {
           localStorage.removeItem('gubblir_auth');
         }
@@ -1454,7 +1519,7 @@
 
       document.getElementById('btn-logout').addEventListener('click', () => {
         localStorage.removeItem('gubblir_auth');
-        window.location.href = 'https://gubblir.se';
+        window.location.href = window.location.pathname;
       });
 
       document.getElementById('btn-close-modal').addEventListener('click', () => {
